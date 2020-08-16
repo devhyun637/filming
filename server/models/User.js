@@ -1,0 +1,68 @@
+'use strict';
+var models = require('../models');
+
+module.exports = function (sequelize, DataTypes) {
+    const User = sequelize.define("User", {
+        userId: {
+            field: "userId",
+            type: DataTypes.STRING(255),
+            unique: true,
+            allowNull: false
+        },
+        password: {
+            field: "password",
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        salt: {
+            field: "salt",
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        name: {
+            field: "name",
+            type: DataTypes.STRING(30),
+            unique: true,
+            allowNull: false
+        },
+        profileImage: {
+            field: "profileImage",
+            type: DataTypes.STRING(255)
+        },
+        age: {
+            field: "age",
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        gender: {
+            field: "gender",
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        address: {
+            field: "address",
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        telNum: {
+            field: "telNum",
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        role: {
+            field: "role",
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+    }, {
+            underscored: true,
+            freezeTalbeName: true,
+            tableName: "User"
+        });
+
+    User.associate = function(models){
+        models.User.hasOne(models.UserInfo, {foreignKey: 'fk_userId'});
+        models.User.hasOne(models.Company, {foreignKey: 'fk_userId'});
+    };
+    return User;
+}
