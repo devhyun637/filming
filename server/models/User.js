@@ -48,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
             field: "telNum",
             type: DataTypes.STRING(255),
             allowNull: false
-        },
+        },//관심분야 추가 (중복허용 / 체크박스)
         role: {
             field: "role",
             type: DataTypes.INTEGER,

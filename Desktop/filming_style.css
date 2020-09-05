@@ -1,0 +1,180 @@
+/* font-family: 'Noto Sans', sans-serif; */
+/* font-family: 'Noto Sans KR', sans-serif; */
+
+* {
+  box-sizing: border-box;
+}
+    
+body {
+  margin-left: 20px;
+  margin-right: 20px;
+  min-width: 992px;
+}
+    
+.navbar {
+  height: 80px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: white;
+}
+    
+.navbar #logo {
+  line-height: 80px;
+  float: left;
+}
+ 
+.navbar #logo img {
+  /* vertical-align: middle; */
+  margin-top: 24px;
+}
+    
+.navbar #menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar #menu li {
+  float: left;
+  margin-left: 50px;
+  line-height: 80px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+    
+.navbar #menu li a {
+  color: black;
+  font-size: 17px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#menu li a:hover {
+  border-bottom: 4.5px solid black;
+}
+
+.navbar .icon {
+  float: right;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar .icon li {
+  float: left;
+  margin-top: 3px;
+  margin-left: 15px;
+  line-height: 80px;
+}
+
+.navbar .myprofile {
+  float: right;
+  list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 20px;
+  display: block;
+}
+
+.navbar .myprofile li {
+  float: left;
+  line-height: 80px;
+  vertical-align: middle;
+}
+
+.navbar .myprofile li a {
+  color: rgb(97, 97, 97);
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.navbar .myprofile img {
+  margin-top: 19px;
+  margin-right: 8px;
+}
+
+table {
+  width: 735px;
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th, td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #f1f1f1;
+}
+
+table td a {
+  text-decoration: none;
+}
+
+.board h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 50px;
+  margin-top: 100px;
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.people-profile h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 50px;
+  margin-top: 100px;
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+  
+.profile {
+  width: 220px;
+  text-align: center;
+  display: block;
+  color: #545454;
+  text-decoration: none;
+  float: left;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 50px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+  
+.profile-name {
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 2px;
+}
+  
+.profile-list {
+  font-size: 14px;
+  width: 735px;
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+
+.clearfix {
+  clear: both;
+}
