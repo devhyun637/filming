@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-    const user_filmo = sequelize.define("user_filmo", {
+    const user_staff = sequelize.define("user_staff", {
         userId:{
             field: "userId",
             type: DataTypes.INTEGER,
             unique: true,
             allowNull: true
         },
-        filmoId:{
-            field: "filmoId",
+        staffId:{
+            field: "staffId",
             type: DataTypes.INTEGER,
             unique: true,
             allowNull: true
@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
     }, {
             underscored: true,
             freezeTalbeName: true,
-            tableName: "user_filmo"
+            tableName: "user_staff"
         });
-    return user_filmo;
+    return user_staff;
 }
