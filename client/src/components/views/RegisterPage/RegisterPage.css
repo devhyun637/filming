@@ -129,19 +129,16 @@ button {
 
 /* 휴대폰번호, 주소*/
 
-#user_address label,
-#user_phone label {
+#user_address label, #user_phone label {
   display: block;
 }
 
-#address,
-#phone_number {
+#address, #phone_number {
   width: 73%;
   margin-right: 7px;
 }
 
-#user_address button,
-#user_phone button {
+#user_address button, #user_phone button {
   width: 25%;
   background-color: #cdcfd8;
   font-size: 1rem;
@@ -151,14 +148,11 @@ button {
   border: 1px solid #cdcfd8;
 }
 
-#user_address button:focus,
-#user_phone button:focus,
-.ant-collapse-header:focus {
+#user_address button:focus, #user_phone button:focus, .ant-collapse-header:focus {
   outline-color: #80a5d7;
 }
 
-#user_address button:hover,
-#user_phone button:hover {
+#user_address button:hover, #user_phone button:hover {
   background-color: #6092cd;
 }
 
@@ -172,6 +166,7 @@ button {
 }
 
 /* 관심분야 */
+
 #interests {
   display: block;
   margin-bottom: 10px;
@@ -180,3 +175,17 @@ button {
 .ant-collapse-header:focus {
   border: 1px solid #80a5d7;
 }
+
+.ant-collapse-content-box .ant-checkbox-wrapper {
+  font-size: 0.8rem;
+  color: #353535;
+  margin: 8px;
+}
+
+.checkbox-value {
+  margin: 0 20px;
+}
+
+/* .ant-collapse-content-box {
+  text-align: center;
+} */

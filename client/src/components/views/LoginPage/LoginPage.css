@@ -1,9 +1,5 @@
 /* 로그인 페이지 */
 
-* {
-  /* border: 1px solid black; */
-}
-
 body {
   padding: 10px;
 }
@@ -92,6 +88,7 @@ input:focus {
 }
 
 /* 버튼 */
+
 #other_buttons {
   /* border: 1px solid red; */
   text-align: center;
