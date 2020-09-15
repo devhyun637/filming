@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 
-import { Collapse } from "antd";
+import CheckBox from "./Sections/CheckBox";
+import { Interest } from "./Sections/Data";
+
 import "./RegisterPage.css";
 
 function RegisterPage() {
-  // Collapse
-  const { Panel } = Collapse;
-  const text = `
-  체크박스가 들어갈 자리입니다.
-`;
-
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [PasswordConfirm, setPasswordConfirm] = useState("");
@@ -19,6 +15,7 @@ function RegisterPage() {
   const [BirthDay, setBirthDay] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
   const [Address, setAddress] = useState("");
+  const [Interests, setInterests] = useState([]);
 
   const onEamilHandler = event => {
     setEmail(event.currentTarget.value);
@@ -73,7 +70,8 @@ function RegisterPage() {
       birthMonth: BirthMonth,
       birthDay: BirthDay,
       phoneNumber: PhoneNumber,
-      address: Address
+      address: Address,
+      interests: Interests
     };
 
     console.log(body);
@@ -92,6 +90,10 @@ function RegisterPage() {
   const canSave = () => {
     if (Email || Password) return false;
     else return true;
+  };
+
+  const handleFilters = Interests => {
+    setInterests(Interests);
   };
 
   return (
@@ -187,8 +189,7 @@ function RegisterPage() {
             type="text"
             className="certification"
             placeholder="인증번호 입력"
-            value
-            onChange
+            disabled
           />
         </div>
 
@@ -203,27 +204,26 @@ function RegisterPage() {
           />
           <button disabled>주소 검색</button>
           <br />
-          <input type="text" className="certification" value onChange />
+          <input type="text" className="certification" disabled />
         </div>
 
         <div id="user_interests" className="register">
           <label id="interests">관심분야 </label>
-          <Collapse>
-            <Panel header="Group A" key="1">
-              <p>{text}</p>
-            </Panel>
-            <Panel header="Group B" key="2">
-              <p>{text}</p>
-            </Panel>
-            <Panel header="Group C" key="3">
-              <p>{text}</p>
-            </Panel>
-          </Collapse>
+          <CheckBox
+            list={Interest}
+            handleFilters={Interests => handleFilters(Interests)}
+          />
         </div>
 
         <button type="submit" id="register_button" disabled={canSave()}>
           가입하기
         </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </form>
     </div>
   );
