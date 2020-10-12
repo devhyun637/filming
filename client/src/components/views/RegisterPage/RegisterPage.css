@@ -99,13 +99,13 @@ button {
   border: 1px solid #cdcfd8;
 }
 
-#user_id button:focus {
+/* #user_id button:focus {
   outline-color: #80a5d7;
 }
 
 #user_id button:hover {
   background-color: #6092cd;
-}
+} */
 
 /* 비밀번호 */
 
@@ -148,13 +148,13 @@ button {
   border: 1px solid #cdcfd8;
 }
 
-#user_address button:focus, #user_phone button:focus, .ant-collapse-header:focus {
+/* #user_address button:focus, #user_phone button:focus, .ant-collapse-header:focus {
   outline-color: #80a5d7;
-}
+} */
 
-#user_address button:hover, #user_phone button:hover {
+/* #user_address button:hover, #user_phone button:hover {
   background-color: #6092cd;
-}
+} */
 
 #user_phone .certification {
   width: 100%;

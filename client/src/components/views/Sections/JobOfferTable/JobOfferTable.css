@@ -1,0 +1,11 @@
+.job-offer-table {
+    width: 100%;
+    border: 1px solid red;
+}
+
+.job-offer-table-title {
+    font-size: 1.8rem;
+    caption-side: top;
+    color: black;
+    margin-bottom: 15px;
+}
