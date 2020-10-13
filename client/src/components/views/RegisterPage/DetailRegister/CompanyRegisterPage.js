@@ -1,48 +1,134 @@
 import React, { useState } from "react";
 import "./DetailPage.css";
+import styled from "styled-components";
 
-import { Form, Input, Select } from "antd";
+import { Form, Input } from "antd";
 import CheckBox2 from "../Sections/CheckBox2";
 import { fields } from "../Sections/Fields";
+import FileUpload from "../../../utils/FileUpload";
+import SelectOne from "../../../utils/SelectOne";
+import { AddressMainCategory } from "../../../Data/AddressData1";
 
-const { Option } = Select;
 const { TextArea } = Input;
 
+//스타일
+const CompanyDetails = styled.div`
+  padding-top: 100px;
+`;
+
+const CompanyInfo = styled.div`
+  width: 60%;
+  margin: 20px auto;
+`;
+
+const CompanyInfoH1 = styled.h1`
+  text-align: left;
+  margin-bottom: 20px;
+`;
+
+const CompanyDetailsForm = styled(Form)`
+  width: 100%;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 0 0 1.5px rgba(165, 167, 173, 0.25);
+`;
+
+const Section = styled.section`
+  padding-top: 0px;
+  margin-bottom: 30px;
+`;
+
+const CompanyIntro = styled.div`
+  width: 100%;
+`;
+
+const CompanyAddress = styled.section`
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 0px;
+`;
+
+const CompanyAddress1 = styled.div`
+  display: inline-block;
+  width: 47%;
+  margin-right: 12px;
+`;
+
+const CompanyAddress2 = styled.div`
+  display: inline-block;
+  width: 45%;
+`;
+
+const PortfolioForm = styled(Form.Item)`
+  margin-bottom: 0px;
+`;
+
+const PortfolioInput = styled(Input)`
+  margin-bottom: 10px;
+`;
+
+const SectionH3 = styled.h3``;
+
 function PersonRegisterPage(props) {
-  const [EnglishName, setEnglishName] = useState("");
+  //useState
+  const [CompanyName, setCompanyName] = useState("");
   const [Introduce, setIntroduce] = useState("");
-  const [SNS, setSNS] = useState("");
+  const [Site, setSite] = useState("");
+  const [Address1, setAddress1] = useState("");
+  const [Address2, setAddress2] = useState("");
   const [Filters, setFilters] = useState([]);
   const [Filmography, setFilmography] = useState("");
-  const [Portfolio, setPortfolio] = useState("");
+  const [Portfolio1, setPortfolio1] = useState("");
+  const [Portfolio2, setPortfolio2] = useState("");
+  const [Portfolio3, setPortfolio3] = useState("");
 
-  //onChange---------------------------------------------------------------
-  const onEnglishNameHandler = event => {
-    setEnglishName(event.currentTarget.value);
+  //onChange
+  const onCompanyNameHandler = event => {
+    setCompanyName(event.currentTarget.value);
   };
 
   const onIntroduceHandler = event => {
-    setIntroduce(event.currentTarget.value);
+    let text = event.currentTarget.value;
+    // --텍스트 저장할 때 줄바꿈 저장하려면 이거 필요한지 테스트 해야함--
+    // console.log(text);
+    // text = text.replaceAll("\n", "!!");
+    // ---------------------------------------------------
+    setIntroduce(text);
   };
 
   const onFilmographyHandler = event => {
     setFilmography(event.currentTarget.value);
   };
 
-  const onPortfolioHandler = event => {
-    setPortfolio(event.currentTarget.value);
+  const onPortfolioHandler1 = event => {
+    setPortfolio1(event.currentTarget.value);
   };
 
-  const onSNSHandler = event => {
-    setSNS(event.currentTarget.value);
+  const onPortfolioHandler2 = event => {
+    setPortfolio2(event.currentTarget.value);
   };
 
-  //----------------------------------------------------------------------------
+  const onPortfolioHandler3 = event => {
+    setPortfolio3(event.currentTarget.value);
+  };
+
+  const onSiteHandler = event => {
+    setSite(event.currentTarget.value);
+  };
 
   const handleFilters = (filters, fields) => {
     const newFilters = { ...Filters };
     newFilters[fields] = filters;
-    setFilters(newFilters);
+    setFilters(newFilters.fields);
+    // console.log(newFilters.fields);
+  };
+
+  const handleAddress1 = filters => {
+    setAddress1(filters);
+  };
+
+  const handleAddress2 = filters => {
+    setAddress2(filters);
   };
 
   // const onFinish = values => {
@@ -53,211 +139,178 @@ function PersonRegisterPage(props) {
   //   console.log("Failed:", errorInfo);
   // };
 
-  const onSubmitHandler = event => {
-    console.log("click");
+  ///////////////////////////// 서버에 값 넘기기 //////////////////////////////////////
+  const onSubmitHandler = () => {
     // event.preventDefault();
 
     let body = {
-      Individual: 2 //individual이 1이면 개인회원, 2이면 기업회원, 0이면 아무것도 하지 않은 회원
+      Individual: 2, //individual이 1이면 개인회원, 2이면 기업회원, 0이면 아무것도 하지 않은 회원
+      fields: Filters,
+      companyName: CompanyName,
+      introduce: Introduce,
+      address1: Address1,
+      address2: Address2,
+      site: Site,
+      filmography: Filmography,
+      portfolio1: Portfolio1,
+      portfolio2: Portfolio2,
+      portfolio3: Portfolio3
     };
 
-    console.log(body);
-
-    // 회원가입 서버 연동
-    // Axios.post("/api/users/register", body).then(response => {
-    //   if (response.data.loginSuccess) {
-    //     props.history.push("/login");
-    //   } else {
-    //     alert("Error");
-    //   }
-    // });
+    if (body.fields.length === 0) {
+      alert("회사 분야를 선택해주세요");
+    } else {
+      console.log(body);
+      // 회원가입 서버 연동
+      // Axios.post("/api/users/register", body).then(response => {
+      //   if (response.data.loginSuccess) {
+      //     props.history.push("/login");
+      //   } else {
+      //     alert("Error");
+      //   }
+      // });
+    }
   };
+  ////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <div id="person_detail">
-      <div id="person_profile_info">
-        <h1>개인회원 프로필 정보</h1>
-        <Form
-          id="profile_info"
-          // onSubmit={onSubmitHandler}
+    <CompanyDetails>
+      <CompanyInfo>
+        <CompanyInfoH1>기업회원 프로필 정보</CompanyInfoH1>
+        <CompanyDetailsForm
           onFinish={onSubmitHandler}
+          // onFinish={onFinish}
           // onFinishFailed={onFinishFailed}
         >
-          <section className="profile_info_picture">
-            <h3>사진 업로드</h3>
-          </section>
+          <Section className="profile_info_picture">
+            <SectionH3>사진 업로드</SectionH3>
+            <FileUpload />
+          </Section>
 
-          <section className="profile_info_name_intro">
+          <Section className="profile_info_name_intro">
             <div id="profile_info_name">
-              <h3>이름</h3>
+              <SectionH3>회사이름</SectionH3>
               <Form.Item
-                name="user_english_name"
+                name="company_name"
                 rules={[
-                  { required: true, message: "영문 이름 입력은 필수입니다." },
-                  {
-                    pattern: /^[a-zA-Z\s]+$/,
-                    message: "영어만 입력할 수 있습니다."
-                  },
-                  {
-                    min: 3,
-                    message: "최소 3글자 이상 입력해야합니다."
-                  }
+                  { required: true, message: "회사명 입력은 필수입니다." }
                 ]}
               >
                 <Input
-                  placeholder="영문 이름을 입력해주세요"
-                  value={EnglishName}
-                  onChange={onEnglishNameHandler}
+                  placeholder="회사명"
+                  value={CompanyName}
+                  onChange={onCompanyNameHandler}
                 />
               </Form.Item>
             </div>
 
-            <div id="profile_info_intro">
-              <h3>자기소개</h3>
+            <CompanyIntro>
+              <SectionH3>회사소개</SectionH3>
               <Form.Item
-                name="user_introduction"
+                name="company_introduction"
                 rules={[
-                  { required: true, message: "자기소개 입력은 필수입니다." }
+                  { required: true, message: "회사소개 입력은 필수입니다." }
                 ]}
               >
                 <TextArea
-                  id="profile_info_intro"
                   autoSize={{ minRows: 6, maxRows: 6 }}
-                  placeholder="자기소개를 입력해주세요"
+                  placeholder="기업에 대한 소개를 작성해주세요"
                   value={Introduce}
                   onChange={onIntroduceHandler}
                 />
               </Form.Item>
-            </div>
-          </section>
+            </CompanyIntro>
+          </Section>
 
-          <section className="profile_info_personal_information">
-            <div id="user_introduction_body">
-              <div className="user_introduction_height">
-                <h3>주소 </h3>
-                <Form.Item
-                  name="user_introduction_height"
-                  rules={[
-                    { required: true, message: "주소 입력은 필수입니다." }
-                  ]}
-                >
-                  <Select
-                    showSearch
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    // onChange={onChange}
-                    // onFocus={onFocus}
-                    // onBlur={onBlur}
-                    // onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
-                  </Select>
-                </Form.Item>
-              </div>
+          <CompanyAddress>
+            <CompanyAddress1>
+              <SectionH3>주소 </SectionH3>
+              <SelectOne
+                itemName="company_address1"
+                list={AddressMainCategory}
+                handleAddress={filters => handleAddress1(filters)}
+              />
+            </CompanyAddress1>
 
-              <div className="user_introduction_weight">
-                <Form.Item
-                  name="user_introduction_height"
-                  rules={[
-                    { required: true, message: "주소 입력은 필수입니다." }
-                  ]}
-                >
-                  <Select
-                    showSearch
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    // onChange={onChange}
-                    // onFocus={onFocus}
-                    // onBlur={onBlur}
-                    // onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
-                  </Select>
-                </Form.Item>
-              </div>
-            </div>
-          </section>
+            <CompanyAddress2>
+              <SelectOne
+                itemName="company_address2"
+                list={AddressMainCategory}
+                handleAddress={filters => handleAddress2(filters)}
+              />
+            </CompanyAddress2>
+          </CompanyAddress>
 
-          <section className="profile_info_personal_information">
-            <h3>사이트</h3>
+          <CompanyAddress>
+            <SectionH3>사이트</SectionH3>
             <Form.Item
-              name="user_info_sns"
+              name="company_sns"
               rules={[
-                { required: true, message: "SNS 주소 입력은 필수입니다." },
+                { required: true, message: "홈페이지 주소 입력은 필수입니다." },
                 { type: "url", message: "링크를 입력해주세요" }
               ]}
             >
               <Input
-                id="user_info_sns"
-                placeholder="SNS 주소"
+                placeholder="홈피이지 링크"
                 style={{ borderRadius: 0 }}
-                value={SNS}
-                onChange={onSNSHandler}
+                value={Site}
+                onChange={onSiteHandler}
               />
             </Form.Item>
-          </section>
+          </CompanyAddress>
 
-          <section
-            className="profile_info_interests"
-            style={{ marginTop: "20px" }}
-          >
-            <h3>회사 분야 </h3>
+          <Section style={{ marginTop: "20px" }}>
+            <SectionH3>회사 분야 </SectionH3>
             <CheckBox2
               list={fields}
               handleFilters={filters => handleFilters(filters, "fields")}
             ></CheckBox2>
-          </section>
+          </Section>
 
-          <section className="profile_info_filmography">
-            <h3>필모그래피</h3>
+          <Section>
+            <SectionH3>필모그래피</SectionH3>
             <Form.Item
-              name="user_introduction_filmography"
+              name="company_filmography"
               rules={[
                 { required: true, message: "필모그래피 입력은 필수입니다." }
               ]}
             >
               <TextArea
-                id="profile_info_filmography"
                 autoSize={{ minRows: 6, maxRows: 6 }}
                 placeholder="자유롭게 입력해주세요"
                 value={Filmography}
                 onChange={onFilmographyHandler}
               />
             </Form.Item>
-          </section>
+          </Section>
           <br />
 
-          <section className="profile_info_upload">
-            <h3>포트폴리오 파일 업로드</h3>
-            <Form.Item
-              name="user_introduction_portfolio"
+          <Section>
+            <SectionH3>포트폴리오 파일 업로드</SectionH3>
+            <PortfolioForm
+              name="company_portfolio"
               rules={[
                 { required: true, message: "포트폴리오 입력은 필수입니다." },
                 { type: "url", message: "링크를 입력해주세요" }
               ]}
             >
-              <Input
-                id="user_info_portfolio"
+              <PortfolioInput
                 placeholder="저용량 영상 또는 유투브, 비메오 링크 첨부 (http://www....)"
-                value={Portfolio}
-                onChange={onPortfolioHandler}
+                value={Portfolio1}
+                onChange={onPortfolioHandler1}
               />
-            </Form.Item>
-          </section>
+            </PortfolioForm>
+            <PortfolioInput
+              placeholder="저용량 영상 또는 유투브, 비메오 링크 첨부 (http://www....)"
+              value={Portfolio2}
+              onChange={onPortfolioHandler2}
+            />
+            <PortfolioInput
+              placeholder="저용량 영상 또는 유투브, 비메오 링크 첨부 (http://www....)"
+              value={Portfolio3}
+              onChange={onPortfolioHandler3}
+            />
+          </Section>
           <br />
 
           <div className="user_info_register_button">
@@ -272,9 +325,9 @@ function PersonRegisterPage(props) {
               작성완료
             </button>
           </div>
-        </Form>
-      </div>
-    </div>
+        </CompanyDetailsForm>
+      </CompanyInfo>
+    </CompanyDetails>
   );
 }
 

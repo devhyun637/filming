@@ -115,7 +115,6 @@ textarea::placeholder {
 /* 인적사항 작성란 */
 
 .profile_info_personal_information {
-  /* border: 1px solid blue; */
   display: inline-block;
   width: 50%;
   margin-bottom: 0px;
@@ -165,7 +164,6 @@ textarea::placeholder {
 /* 관심분야 작성란 */
 
 .profile_info_interests {
-  /* border: 1px solid red; */
   margin-bottom: 50px;
 }
 
