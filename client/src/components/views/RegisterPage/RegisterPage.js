@@ -1,231 +1,224 @@
-import React, { useState } from "react";
-
-import CheckBox from "./Sections/CheckBox";
-import { Interest } from "./Sections/Data";
-
+import React from "react";
+import Axios from "axios";
+import { Formik, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import "./RegisterPage.css";
 
-function RegisterPage() {
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const [PasswordConfirm, setPasswordConfirm] = useState("");
-  const [Name, setName] = useState("");
-  const [BirthYear, setBirthYear] = useState("");
-  const [BirthMonth, setBirthMonth] = useState("");
-  const [BirthDay, setBirthDay] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [Address, setAddress] = useState("");
-  const [Interests, setInterests] = useState([]);
-
-  const onEamilHandler = event => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onPasswordHandler = event => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onPasswordComfirmHandler = event => {
-    setPasswordConfirm(event.currentTarget.value);
-  };
-
-  const onNameHandler = event => {
-    setName(event.currentTarget.value);
-  };
-
-  const onBirthYearHandler = event => {
-    setBirthYear(event.currentTarget.value);
-  };
-
-  const onBirthMonthHandler = event => {
-    setBirthMonth(event.currentTarget.value);
-  };
-
-  const onBirthDayHandler = event => {
-    setBirthDay(event.currentTarget.value);
-  };
-
-  const onPhoneNumberHandler = event => {
-    setPhoneNumber(event.currentTarget.value);
-  };
-
-  const onAddressHandler = event => {
-    setAddress(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = event => {
-    event.preventDefault();
-
-    //error 형식으로 수정하기
-    if (Password !== PasswordConfirm) {
-      return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
-    }
-
-    let body = {
-      email: Email,
-      password: Password,
-      passwordConfirm: PasswordConfirm,
-      name: Name,
-      birthYear: BirthYear,
-      birthMonth: BirthMonth,
-      birthDay: BirthDay,
-      phoneNumber: PhoneNumber,
-      address: Address,
-      interests: Interests
-    };
-
-    console.log(body);
-
-    // 회원가입 서버 연동
-    // Axios.post("/api/users/register", body).then(response => {
-    //   if (response.data.loginSuccess) {
-    //     props.history.push("/login");
-    //   } else {
-    //     alert("Error");
-    //   }
-    // });
-  };
-
-  //validation 하기
-  const canSave = () => {
-    if (Email || Password) return false;
-    else return true;
-  };
-
-  const handleFilters = Interests => {
-    setInterests(Interests);
-  };
-
+function RegisterPage(props) {
   return (
-    <div id="register_page">
-      <form id="register_form" onSubmit={onSubmitHandler}>
-        <h1>회원가입</h1>
-        <div id="user_id" className="register">
-          <label htmlFor="id">아이디(이메일) </label>
-          <input
-            type="email"
-            id="id"
-            name=""
-            placeholder="이메일 주소"
-            value={Email}
-            onChange={onEamilHandler}
-          />
-          <br />
-          <button type="submit" disabled>
-            인증 메일 전송
-          </button>
-        </div>
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        name: "",
+        birthYear: "",
+        birthMonth: "",
+        birthDay: "",
+        phoneNumber: "",
+        addresses: ""
+      }}
+      validationSchema={Yup.object().shape({
+        email: Yup.string()
+          .email("이메일 형식이 올바르지 않습니다.")
+          .required("이메일은 필수입력입니다."),
+        password: Yup.string()
+          .min(8, "비밀번호는 8글자 이상입니다.")
+          .required("비밀번호는 필수입력입니다."),
+        passwordConfirm: Yup.string()
+          .oneOf([Yup.ref("password"), null], "비밀번호와 일치하지 않습니다.")
+          .required("비밀번호 확인은 필수입력입니다."),
+        name: Yup.string().required("이름은 필수입력입니다."),
+        birthYear: Yup.string()
+          .matches(/^[0-9]{4}$/, "태어난 연도의 4자리 숫자를 입력해주세요")
+          .required("생년월일은 필수입력입니다."),
+        birthMonth: Yup.string()
+          .matches(/^[0-9]{2}$/, "태어난 달의 2자리 숫자를 입력해주세요")
+          .required("생년월일은 필수입력입니다."),
+        birthDay: Yup.string()
+          .matches(/^[0-9]{2}$/, "태어난 날짜의 2자리 숫자를 입력해주세요")
+          .required("생년월일은 필수입력입니다."),
+        phoneNumber: Yup.string()
+          .matches(/^[0-9]{11}$/, "핸드폰번호 숫자만 입력해주세요")
+          .required("핸드폰번호는 필수입력입니다."),
+        addresses: Yup.string().required("주소는 필수입력입니다.")
+      })}
+      onSubmit={(values, { setSubmitting }) => {
+        console.log(values);
+        ///////////////////////////// 서버에 값 넘기기 /////////////////////////////////////
+        Axios({
+          method: "POST",
+          url: "/api/users/hello",
+          data: values
+        })
+          .then(response => {
+            setSubmitting(false);
+            console.log(response);
+            props.history.push("/detailRegister");
+          })
+          .catch(error => {
+            setSubmitting(false);
+            console.log(error);
+          });
+        /////////////////////////////////////////////////////////////////////////////////////
+      }}
+    >
+      {props => {
+        return (
+          <div id="register_page">
+            <form id="register_form" onSubmit={props.handleSubmit}>
+              <h1>회원가입</h1>
+              <div id="user_id" className="register">
+                <label htmlFor="id">아이디(이메일) </label>
+                <Field
+                  id="id"
+                  type="email"
+                  name="email"
+                  placeholder="이메일을 입력해주세요"
+                />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="email"
+                  component="div"
+                />
+                <br />
+                {/* ///////////////////////////// 여기서 이메일 중복 확인하는거 어떤지///////////////////// */}
+                <button type="submit" disabled>
+                  인증 메일 전송
+                </button>
+                {/* /////////////////////////////////////////////////////////////////////////////// */}
+              </div>
 
-        <div id="user_password" className="register">
-          <label htmlFor="password">비밀번호 </label>
-          <input
-            type="password"
-            id="password"
-            name=""
-            placeholder="비밀번호 (영문, 숫자, 특수문자 8-25자)"
-            value={Password}
-            onChange={onPasswordHandler}
-          />
-          <label htmlFor="new_password">비밀번호 확인 </label>
-          <input
-            type="password"
-            id="new_password"
-            name=""
-            placeholder="비밀번호 확인"
-            value={PasswordConfirm}
-            onChange={onPasswordComfirmHandler}
-          />
-        </div>
+              <div id="user_password" className="register">
+                <label htmlFor="password">비밀번호 </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="비밀번호 (영문, 숫자, 특수문자 8-25자)"
+                  value={props.password}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  className={
+                    props.errors.password && props.touched.password
+                      ? "text-input error"
+                      : "text-input"
+                  }
+                />
+                {props.errors.password && props.touched.password && (
+                  <div style={{ color: " #D30000" }}>
+                    {props.errors.password}
+                  </div>
+                )}
+                <br />
+                <label htmlFor="new_password">비밀번호 확인 </label>
+                <Field
+                  id="new_password"
+                  type="password"
+                  name="passwordConfirm"
+                  placeholder="비밀번호 확인"
+                />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="passwordConfirm"
+                  component="div"
+                />
+              </div>
 
-        <div id="user_name" className="register">
-          <label htmlFor="name">이름 </label>
-          <input
-            type="text"
-            id="name"
-            name=""
-            placeholder="실명을 입력하세요"
-            value={Name}
-            onChange={onNameHandler}
-          />
-        </div>
+              <div id="user_name" className="register">
+                <label htmlFor="name">이름 </label>
+                <Field
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="실명을 입력하세요"
+                />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="name"
+                  component="div"
+                />
+              </div>
 
-        <div id="user_birth" className="register">
-          <label>생년월일 </label>
-          <input
-            type="text"
-            name=""
-            placeholder="년(4자)"
-            value={BirthYear}
-            onChange={onBirthYearHandler}
-          />
-          <input
-            type="text"
-            name=""
-            placeholder="월"
-            value={BirthMonth}
-            onChange={onBirthMonthHandler}
-          />
-          <input
-            type="text"
-            name=""
-            placeholder="일"
-            value={BirthDay}
-            onChange={onBirthDayHandler}
-          />
-        </div>
+              <div id="user_birth" className="register">
+                <label>생년월일 </label>
+                <Field type="text" name="birthYear" placeholder="년(4자)" />
+                <Field type="text" name="birthMonth" placeholder="월(2자)" />
+                <Field type="text" name="birthDay" placeholder="월(2자)" />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="birthYear"
+                  component="div"
+                />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="birthMonth"
+                  component="div"
+                />
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="birthDay"
+                  component="div"
+                />
+              </div>
 
-        <div id="user_phone" className="register">
-          <label htmlFor="phone_number">휴대폰번호 </label>
-          <input
-            type="text"
-            id="phone_number"
-            placeholder="'-'구분없이 입력"
-            value={PhoneNumber}
-            onChange={onPhoneNumberHandler}
-          />
-          <button disabled>인증번호</button>
-          <br />
-          <input
-            type="text"
-            className="certification"
-            placeholder="인증번호 입력"
-            disabled
-          />
-        </div>
+              <div id="user_phone" className="register">
+                <label htmlFor="phone_number">휴대폰번호 </label>
+                <Field
+                  id="phone_number"
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="핸드폰 번호 입력(-제외 숫자 11자리)"
+                />
+                <button disabled>인증번호</button>
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="phoneNumber"
+                  component="div"
+                />
+                <input
+                  type="text"
+                  className="certification"
+                  placeholder="인증번호 입력"
+                  disabled
+                />
+              </div>
 
-        <div id="user_address" className="register">
-          <label htmlFor="address">주소 </label>
-          <input
-            type="text"
-            id="address"
-            placeholder="주소 입력"
-            value={Address}
-            onChange={onAddressHandler}
-          />
-          <button disabled>주소 검색</button>
-          <br />
-          <input type="text" className="certification" disabled />
-        </div>
+              <div id="user_address" className="register">
+                <label htmlFor="address">주소 </label>
+                <Field
+                  id="address"
+                  type="text"
+                  name="addresses"
+                  placeholder="주소 입력"
+                />
+                <button disabled>주소 검색</button>
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="addresses"
+                  component="div"
+                />
+                <input type="text" className="certification" disabled />
+              </div>
 
-        <div id="user_interests" className="register">
-          <label id="interests">관심분야 </label>
-          <CheckBox
-            list={Interest}
-            handleFilters={Interests => handleFilters(Interests)}
-          />
-        </div>
-
-        <button type="submit" id="register_button" disabled={canSave()}>
-          가입하기
-        </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </form>
-    </div>
+              <button
+                type="submit"
+                id="register_button"
+                disabled={props.isSubmitting}
+                onSubmit={props.handleSubmit}
+              >
+                가입하기
+              </button>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </form>
+          </div>
+        );
+      }}
+    </Formik>
   );
 }
 

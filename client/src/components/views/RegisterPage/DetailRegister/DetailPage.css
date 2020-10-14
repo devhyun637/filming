@@ -1,0 +1,202 @@
+/* 선택페이지 */
+
+#detail_register_page {
+  padding-top: 100px;
+}
+
+#detail_register_page ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+#detail_register_page ul {
+  width: 50%;
+  list-style: none;
+  margin: 60px auto;
+  text-align: center;
+}
+
+#detail_register_page li {
+  display: inline-block;
+}
+
+.select_detail {
+  margin: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.select_detail:hover {
+  outline: 1.5px solid #80a5d7;
+  text-decoration-color: #80a5d7;
+}
+
+.select_detail img {
+  margin: 10px;
+  width: 200px;
+  height: 200px;
+}
+
+.select_detail h2 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 개인회원 페이지 */
+
+/* 개인회원 페이지 */
+
+/* 개인회원 페이지 */
+
+#person_detail {
+  padding-top: 100px;
+}
+
+#person_profile_info {
+  width: 60%;
+  margin: 20px auto;
+}
+
+#person_profile_info h1 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#person_detail form {
+  width: 100%;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 0 0 1.5px rgba(165, 167, 173, 0.25);
+}
+
+input::placeholder {
+  font-size: 14px;
+  color: #cdcfd8;
+  padding: 5px;
+}
+
+textarea::placeholder {
+  font-size: 14px;
+  color: #cdcfd8;
+  padding: 5px;
+}
+
+/* 사진 업로드란  */
+
+/* 이름 및 자기소개 작성란 */
+
+.profile_info_name_intro {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.profile_info_name_intro input {
+  margin-bottom: 10px;
+  height: 40px;
+}
+
+.profile_info_name_intro input:last-child {
+  margin-bottom: 0px;
+}
+
+#profile_info_name {
+  width: 50%;
+}
+
+#profile_info_intro {
+  width: 100%;
+}
+
+#profile_info_intro h3 {
+  margin-top: 30px;
+}
+
+/* 인적사항 작성란 */
+
+.profile_info_personal_information {
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 0px;
+}
+
+.profile_info_personal_information input {
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+#user_introduction_birthday input {
+  margin-right: 10px;
+  display: inline-block;
+  width: 30%;
+}
+
+#user_introduction_address input {
+  width: 95%;
+}
+
+#user_introduction_body input {
+  height: 40px;
+  border-radius: 0;
+}
+
+#user_introduction_body input::placeholder {
+  font-size: 14px;
+  color: #cdcfd8;
+  padding: 0px;
+}
+
+.user_introduction_height {
+  display: inline-block;
+  width: 47%;
+  margin-right: 12px;
+}
+
+.user_introduction_weight {
+  display: inline-block;
+  width: 45%;
+}
+
+#user_info_sns, #profile_info_weight, #profile_info_height {
+  margin-bottom: 0px;
+}
+
+/* 관심분야 작성란 */
+
+.profile_info_interests {
+  margin-bottom: 50px;
+}
+
+/* 필모그래피 작성란 */
+
+.profile_info_biography, .profile_info_filmography {
+  margin-bottom: 30px;
+}
+
+/* 버튼 */
+
+.user_info_register_button {
+  /* border: 1px solid red; */
+  text-align: center;
+  margin: 20px 0;
+}
+
+#temporary_storage_button, #storage_button {
+  display: inline-block;
+  margin-left: 20px;
+  width: 30%;
+  background-color: #6092cd;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 0;
+  margin-bottom: 0px;
+}
+
+#temporary_storage_button {
+  background-color: #cdcfd8;
+}
+
+#storage_button:hover {
+  background-color: #2073c6;
+}
