@@ -48,7 +48,7 @@ function RegisterPage(props) {
         ///////////////////////////// 서버에 값 넘기기 /////////////////////////////////////
         Axios({
           method: "POST",
-          url: "/api/users/hello",
+          url: "http://localhost:5000/api/users/register",
           data: values
         })
           .then(response => {

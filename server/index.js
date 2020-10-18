@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 
 const models = require('./models/index.js');
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
 //=========================== DB 연결 ===========================
 models.sequelize.sync().then(() => {
     console.log("===========================DB 연결 성공===========================");
@@ -15,10 +17,6 @@ models.sequelize.sync().then(() => {
     console.log("=========================== DB 연결 실패===========================");
     console.log(err);
 });
-
-console.log("?");
-
-app.use(cors());
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));

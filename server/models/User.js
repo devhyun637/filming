@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
         gender: {
             field: "gender",
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         address: {
             field: "address",
@@ -52,14 +52,13 @@ module.exports = function (sequelize, DataTypes) {
         role: {
             field: "role",
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
     }, {
             underscored: true,
             freezeTalbeName: true,
             tableName: "User"
         });
-
     User.associate = function(models){
         models.User.hasOne(models.UserInfo, {foreignKey: 'fk_userId'});
         models.User.hasOne(models.Company, {foreignKey: 'fk_userId'});

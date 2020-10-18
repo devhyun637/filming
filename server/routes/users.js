@@ -6,15 +6,31 @@ const jwt = require('jsonwebtoken');
 const secretObj = require('../config/jwt');
 const crypto = require('crypto');
 
+let secret = require('../config/jwt').secret;
+
+router.post('/인석작업url',(req,res) => {
+    let token = req.cookies.user;
+    let decoded = jwt.verify(token, secret);
+    if(decoded){
+        //작업 할 코드
+    }else{
+        return res.status(400).json({
+            success:false,
+            meessage:"권한이 없습니다"
+        });
+    }
+})
+
 router.post('/register', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     userInfo = req.body;
     //birthDateInfo = userInfo.birthDate.split('/');
     //userBirth = new Date(birthDateInfo[0], birthDateInfo[1] - 1, birthDateInfo[2]);
-    userAge = 10;
+    userAge = userInfo.birthYear;
     //비밀번호 일치 여부 확인하기
-    if (userInfo.password !== userInfo.confirmpassword) {
+    if (userInfo.password !== userInfo.passwordConfirm) {
         return res.json({
-            isRegisterSuccess: false,
+            success: false,
             message: "비밀번호가 일치하지 않습니다."
         });
     }
@@ -25,7 +41,7 @@ router.post('/register', (req, res) => {
 
     //정보 저장하기
     models.User.create({
-        userId: userInfo.userId,
+        userId: userInfo.email,
         password: hashPassword,
         salt: salt,
         name: userInfo.name,
@@ -34,12 +50,72 @@ router.post('/register', (req, res) => {
         updated_at: new Date(),
         age: userAge,
         gender: userInfo.gender,
-        address: userInfo.address,
-        telNum: userInfo.telNum
+        address: userInfo.addresses,
+        telNum: userInfo.phoneNumber
     }).then(result=>{
-        console.log("회원가입");
+        return res.status(200).json({
+            success:true,
+            result
+        });
+    }).catch(e => {
+        return res.status(400).json({
+            success:false,
+            e
+        })
     });
 
-})
+});
+
+// =========================== 로그인 하기 ===========================
+router.post('/login', async function (req, res) {
+    //토큰 생성하기
+    let token = jwt.sign({
+        email: req.body.email + Date.now()
+    },
+        secretObj.secret,
+        {
+            //회원 로그인 60분 유지
+            expiresIn: '60m'
+        });
+
+    //이메일로 회원 찾기
+    var result = await models.User.findOne({
+        where: {
+            userId: req.body.email
+        }
+    });
+
+    //가입이 안되어있는 이메일
+    if (result == null) {
+        return res.json({
+            loginSuccess: false,
+            message: "해당 이메일로 가입된 아이디가 없습니다."
+        });
+    }
+
+    //입력한 비밀번호 암호화하기
+    var dbPassword = result.dataValues.password;
+    var inputPassword = req.body.password;
+    var salt = result.dataValues.salt;
+    var hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+    //비밀번호가 틀림
+    if (dbPassword != hashPassword) {
+        return res.json({
+            loginSuccess: false,
+            message: "비밀번호가 일치하지 않습니다."
+        })
+    } else {
+        //비밀번호가 맞으면 토큰 Cookie에 저장하기
+        res.cookie("user", token);
+        res.cookie("id", result.dataValues.id);
+        return res.json({
+            loginSuccess: true,
+            email: result.dataValues.email,
+            name: result.dataValues.name,
+            token: token
+        });
+    }
+});
 
 module.exports = router;

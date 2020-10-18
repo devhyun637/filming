@@ -26,8 +26,9 @@ function LoginPage(props) {
         ///////////////////////////// 서버로부터 값 가져와서 페이지 넘겨주어야 함 /////////////////////////////////////
         Axios({
           method: "POST",
-          url: "",
-          data: values
+          url: "http://localhost:5000/api/users/login",
+          data: values,
+          withCredentials:true
         })
           .then(response => {
             setSubmitting(false);
