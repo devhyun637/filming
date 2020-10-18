@@ -25,10 +25,6 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             allowNull: false
         },
-        profileImage: {
-            field: "profileImage",
-            type: DataTypes.STRING(255)
-        },
         age: {
             field: "age",
             type: DataTypes.INTEGER,
