@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import Header from "./components/views/Sections/Header/Header";
+
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import DetailRegisterPage from "./components/views/RegisterPage/DetailRegister/DetailRegisterPage";
@@ -11,6 +13,7 @@ import HomePage from "./components/views/HomePage/HomePage";
 function App() {
   return (
     <Router>
+      <Header />
       <div>
         {/* 로그인 유뭉에 따른 회원 접근 권한 주기 */}
         <Switch>
