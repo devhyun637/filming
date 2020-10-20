@@ -1,9 +1,5 @@
 /* 회원가입 페이지 */
 
-body {
-  padding: 10px;
-}
-
 h1 {
   text-align: center;
 }
@@ -11,7 +7,7 @@ h1 {
 #register_page {
   justify-content: center;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   /* margin-top: 100px; */
   /* text-align: center; */
@@ -19,12 +15,8 @@ h1 {
 
 #register_form {
   width: 60%;
-  padding: 20px;
-  padding-top: 100px;
-}
-
-#user_id {
-  margin-top: 100px;
+  margin: 3rem;
+  /* padding-top: 100px; */
 }
 
 label {
@@ -88,7 +80,6 @@ button {
 /* 아이디 */
 
 #user_id button {
-  /* margin-top: 30px; */
   display: block;
   width: 100%;
   background-color: #cdcfd8;
