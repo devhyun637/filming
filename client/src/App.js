@@ -10,6 +10,8 @@ import CompanyRegisterPage from "./components/views/RegisterPage/DetailRegister/
 import PersonRegisterPage from "./components/views/RegisterPage/DetailRegister/PersonRegisterPage";
 import HomePage from "./components/views/HomePage/HomePage";
 
+import ProfilePage from "./components/views/ProfilePage/ProfilePage";
+
 function App() {
   return (
     <Router>
@@ -24,6 +26,8 @@ function App() {
           <Route exact path="/detailRegister" component={DetailRegisterPage} />
           <Route exact path="/compRegister" component={CompanyRegisterPage} />
           <Route exact path="/personRegister" component={PersonRegisterPage} />
+
+          <Route exact path="/profile" component={ProfilePage} />
         </Switch>
       </div>
     </Router>

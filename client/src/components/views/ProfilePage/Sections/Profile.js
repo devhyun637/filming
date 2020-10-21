@@ -1,22 +1,28 @@
 import React from "react";
+import styled from "styled-components";
+
+const Article = styled.article`
+  border: 1px solid black;
+  margin: 0.3rem;
+  padding: 1.5rem;s
+`;
 
 function Profile() {
   return (
-    <article>
+    <Article>
       <figure>
         <img></img>
       </figure>
-      <h1>이름</h1>
+      <h1 style={{ textAlign: "left" }}>이름</h1>
       <div>profile</div>
       <div>
         <ul>
           <li>좋아요</li>
-          {/* 남이보는데 이게 왜 필요? */}
           <li>메일</li>
           <li>찜</li>
         </ul>
       </div>
-    </article>
+    </Article>
   );
 }
 

@@ -5,7 +5,7 @@ import Logo from "./logo_png.png";
 //스타일
 const HeaderSection = styled.header`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   padding: 1.5rem;
   background-color: white;
