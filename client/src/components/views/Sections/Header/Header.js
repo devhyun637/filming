@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import "./Header.css";
+import { Badge } from "antd";
+import {
+  MailOutlined,
+  MessageOutlined,
+  NotificationOutlined
+} from "@ant-design/icons";
+
 import Logo from "./logo_png.png";
+import Image from "./img.png";
 
 //스타일
 const HeaderSection = styled.header`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1.5rem;
+  width: 100%;
+  height: 10vh;
   background-color: white;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  flex-wrap: wrap;
 `;
 
-const HeaderLogo = styled.a``;
+const HeaderLogo = styled.a`
+  margin: 0 5rem;
+`;
 
 const LogoImg = styled.img.attrs({
   src: Logo
@@ -19,24 +36,22 @@ const LogoImg = styled.img.attrs({
   width: 10rem;
 `;
 
-const HeaderMenu = styled.ul`
+const HeaderNav = styled.ul`
   display: flex;
-  margin: 0;
+  align-items: center;
+
+  list-style: none;
   padding: 0;
-  // border: 1px solid blue;
+  margin: 0 5rem;
 `;
 
 const HeaderMenuList = styled.li`
-  // border: 1px solid green;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0 1em;
-  list-style: none;
 `;
 
 const HeaderUserMenuList = styled.li`
-  // border: 1px solid orange;
-  margin: 0 1em;
-  list-style: none;
+  margin: 0 1.5em;
 `;
 
 const Link = styled.a`
@@ -47,13 +62,99 @@ const Link = styled.a`
   }
 `;
 
+const User = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileImage = styled.div`
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background-image: url(${Image});
+  background-size: cover;
+  background-position: center;
+`;
+
+const UserName = styled.span`
+  margin-left: 0.5rem;
+  padding-top: 0.1rem;
+  font-size: 1rem;
+`;
+
 function Header() {
+  //////////////////////////userId 가져오기/////////////////////////////
+  const userId = "111";
+  const [name, setName] = useState("김필름");
+  ///////////////////////////////////////////////////////////////////
+
+  const isLogin = () => {
+    //login 하기 전
+    if (userId === "") {
+      return (
+        <HeaderNav className="user_nav">
+          <HeaderUserMenuList>
+            <Link href="/login"> 로그인 </Link>
+          </HeaderUserMenuList>
+          <HeaderUserMenuList>
+            <Link href="/register"> 회원가입 </Link>
+          </HeaderUserMenuList>
+        </HeaderNav>
+      );
+    } else {
+      //login 한 후
+      return (
+        <HeaderNav className="member_nav">
+          <HeaderUserMenuList>
+            <Link href="#">
+              <Badge count={0} size="small">
+                <MailOutlined
+                  style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
+                />
+              </Badge>
+            </Link>
+          </HeaderUserMenuList>
+
+          <HeaderUserMenuList>
+            <Link href="#">
+              <Badge count={0} size="small">
+                <MessageOutlined
+                  style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
+                />
+              </Badge>
+            </Link>
+          </HeaderUserMenuList>
+
+          <HeaderUserMenuList>
+            <Link href="#">
+              <Badge count={1} size="small">
+                <NotificationOutlined
+                  style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
+                />
+              </Badge>
+            </Link>
+          </HeaderUserMenuList>
+
+          <HeaderUserMenuList style={{ padding: 0 }}>
+            <Link href="/profile">
+              <User>
+                <ProfileImage className="profile-img" />
+                <UserName>{name}</UserName>
+              </User>
+            </Link>
+          </HeaderUserMenuList>
+        </HeaderNav>
+      );
+    }
+  };
+
   return (
-    <HeaderSection>
+    <HeaderSection id="header">
       <HeaderLogo href="/">
         <LogoImg />
       </HeaderLogo>
-      <HeaderMenu>
+
+      <HeaderNav className="menu-nav">
         <HeaderMenuList>
           <Link href="#"> 구인게시판 </Link>
         </HeaderMenuList>
@@ -63,41 +164,10 @@ function Header() {
         <HeaderMenuList>
           <Link href="#"> 로케이션 </Link>
         </HeaderMenuList>
-      </HeaderMenu>
-      <HeaderMenu>
-        <HeaderUserMenuList>
-          <Link href="/login"> 로그인 </Link>
-        </HeaderUserMenuList>
-        <HeaderUserMenuList>
-          <Link href="/register"> 회원가입 </Link>
-        </HeaderUserMenuList>
-      </HeaderMenu>
+      </HeaderNav>
+
+      {isLogin()}
     </HeaderSection>
   );
-  // 로그인 했을 때인데 이건 아이콘 받고 구현할거야..
-  // return (
-  //   <HeaderSection>
-  //     <HeaderLogo href="/">
-  //       <LogoImg />
-  //     </HeaderLogo>
-  //     <HeaderMenu>
-  //       <HeaderMenuList>
-  //         <Link href="#"> 구인게시판 </Link>
-  //       </HeaderMenuList>
-  //       <HeaderMenuList>
-  //         <Link href="#"> 프로필 탐색 </Link>
-  //       </HeaderMenuList>
-  //       <HeaderMenuList>
-  //         <Link href="#"> 로케이션 </Link>
-  //       </HeaderMenuList>
-  //     </HeaderMenu>
-  //     <HeaderMenu>
-  //       <HeaderUserMenuList>
-  //         <Link href="#"> 로그인함 </Link>
-  //       </HeaderUserMenuList>
-  //     </HeaderMenu>
-  //   </HeaderSection>
-  // );
 }
-
 export default Header;
