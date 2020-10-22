@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Article = styled.article`
   border: 1px solid black;
   margin: 0.3rem;
+  margin-left: 4rem;
   padding: 1.5rem;s
 `;
 

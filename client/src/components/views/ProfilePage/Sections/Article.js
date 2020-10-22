@@ -5,6 +5,7 @@ const ProfileArticle = styled.article`
   // border: 1px solid black;
   background-color: white;
   margin: 0.3rem;
+  margin-right: 4rem;
   padding: 1.5rem;
   padding-bottom: 0.5rem;
 `;
