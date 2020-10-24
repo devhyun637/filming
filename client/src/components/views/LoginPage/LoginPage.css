@@ -1,8 +1,8 @@
 /* 로그인 페이지 */
 
-body {
+/* body {
   padding: 10px;
-}
+} */
 
 h1 {
   text-align: center;
@@ -19,12 +19,12 @@ h1 {
 
 #login_form {
   width: 40%;
-  padding: 20px;
-  padding-top: 100px;
+  margin: 3rem;
+  /* padding-top: 100px; */
 }
 
 #user_id {
-  margin-top: 100px;
+  margin-top: 3rem;
 }
 
 label {

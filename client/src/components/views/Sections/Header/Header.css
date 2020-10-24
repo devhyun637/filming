@@ -1,0 +1,5 @@
+/* 로그인 했을 때 메뉴 css */
+.member_nav li {
+  margin: 0 0.8em;
+  padding-top: 0.125rem;
+}
