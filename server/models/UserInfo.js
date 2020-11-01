@@ -31,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true
         },
         portfolio: {
-            field: "portfolio",
+            field: "filmography",
             type: DataTypes.STRING(255),
             unique: true,
             allowNull: true
