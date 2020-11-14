@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./DetailPage.css";
 import styled from "styled-components";
+import Axios from "axios";
 
 import { Form, Input } from "antd";
 import CheckBox2 from "../Sections/CheckBox2";
@@ -83,11 +84,11 @@ function PersonRegisterPage(props) {
   const [Portfolio3, setPortfolio3] = useState("");
 
   //onChange
-  const onCompanyNameHandler = event => {
+  const onCompanyNameHandler = (event) => {
     setCompanyName(event.currentTarget.value);
   };
 
-  const onIntroduceHandler = event => {
+  const onIntroduceHandler = (event) => {
     let text = event.currentTarget.value;
     // --텍스트 저장할 때 줄바꿈 저장하려면 이거 필요한지 테스트 해야함--
     // console.log(text);
@@ -96,23 +97,23 @@ function PersonRegisterPage(props) {
     setIntroduce(text);
   };
 
-  const onFilmographyHandler = event => {
+  const onFilmographyHandler = (event) => {
     setFilmography(event.currentTarget.value);
   };
 
-  const onPortfolioHandler1 = event => {
+  const onPortfolioHandler1 = (event) => {
     setPortfolio1(event.currentTarget.value);
   };
 
-  const onPortfolioHandler2 = event => {
+  const onPortfolioHandler2 = (event) => {
     setPortfolio2(event.currentTarget.value);
   };
 
-  const onPortfolioHandler3 = event => {
+  const onPortfolioHandler3 = (event) => {
     setPortfolio3(event.currentTarget.value);
   };
 
-  const onSiteHandler = event => {
+  const onSiteHandler = (event) => {
     setSite(event.currentTarget.value);
   };
 
@@ -123,11 +124,11 @@ function PersonRegisterPage(props) {
     // console.log(newFilters.fields);
   };
 
-  const handleAddress1 = filters => {
+  const handleAddress1 = (filters) => {
     setAddress1(filters);
   };
 
-  const handleAddress2 = filters => {
+  const handleAddress2 = (filters) => {
     setAddress2(filters);
   };
 
@@ -154,21 +155,21 @@ function PersonRegisterPage(props) {
       filmography: Filmography,
       portfolio1: Portfolio1,
       portfolio2: Portfolio2,
-      portfolio3: Portfolio3
+      portfolio3: Portfolio3,
     };
 
     if (body.fields.length === 0) {
       alert("회사 분야를 선택해주세요");
     } else {
       console.log(body);
-      // 회원가입 서버 연동
-      // Axios.post("/api/users/register", body).then(response => {
-      //   if (response.data.loginSuccess) {
-      //     props.history.push("/login");
-      //   } else {
-      //     alert("Error");
-      //   }
-      // });
+      //회원가입 서버 연동
+      Axios.post("/api/users/compRegister", body).then((response) => {
+        if (response.data.success) {
+          props.history.push("/login");
+        } else {
+          alert("Error");
+        }
+      });
     }
   };
   ////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +194,7 @@ function PersonRegisterPage(props) {
               <Form.Item
                 name="company_name"
                 rules={[
-                  { required: true, message: "회사명 입력은 필수입니다." }
+                  { required: true, message: "회사명 입력은 필수입니다." },
                 ]}
               >
                 <Input
@@ -209,7 +210,7 @@ function PersonRegisterPage(props) {
               <Form.Item
                 name="company_introduction"
                 rules={[
-                  { required: true, message: "회사소개 입력은 필수입니다." }
+                  { required: true, message: "회사소개 입력은 필수입니다." },
                 ]}
               >
                 <TextArea
@@ -228,7 +229,7 @@ function PersonRegisterPage(props) {
               <SelectOne
                 itemName="company_address1"
                 list={AddressMainCategory}
-                handleAddress={filters => handleAddress1(filters)}
+                handleAddress={(filters) => handleAddress1(filters)}
               />
             </CompanyAddress1>
 
@@ -236,7 +237,7 @@ function PersonRegisterPage(props) {
               <SelectOne
                 itemName="company_address2"
                 list={AddressMainCategory}
-                handleAddress={filters => handleAddress2(filters)}
+                handleAddress={(filters) => handleAddress2(filters)}
               />
             </CompanyAddress2>
           </CompanyAddress>
@@ -247,7 +248,7 @@ function PersonRegisterPage(props) {
               name="company_sns"
               rules={[
                 { required: true, message: "홈페이지 주소 입력은 필수입니다." },
-                { type: "url", message: "링크를 입력해주세요" }
+                { type: "url", message: "링크를 입력해주세요" },
               ]}
             >
               <Input
@@ -263,7 +264,7 @@ function PersonRegisterPage(props) {
             <SectionH3>회사 분야 </SectionH3>
             <CheckBox2
               list={fields}
-              handleFilters={filters => handleFilters(filters, "fields")}
+              handleFilters={(filters) => handleFilters(filters, "fields")}
             ></CheckBox2>
           </Section>
 
@@ -272,7 +273,7 @@ function PersonRegisterPage(props) {
             <Form.Item
               name="company_filmography"
               rules={[
-                { required: true, message: "필모그래피 입력은 필수입니다." }
+                { required: true, message: "필모그래피 입력은 필수입니다." },
               ]}
             >
               <TextArea
@@ -291,7 +292,7 @@ function PersonRegisterPage(props) {
               name="company_portfolio"
               rules={[
                 { required: true, message: "포트폴리오 입력은 필수입니다." },
-                { type: "url", message: "링크를 입력해주세요" }
+                { type: "url", message: "링크를 입력해주세요" },
               ]}
             >
               <PortfolioInput

@@ -1,22 +1,34 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = 5000;
-const cors = require('cors');
+const cors = require("cors");
 
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-const models = require('./models/index.js');
+const models = require("./models/index.js");
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 //=========================== DB 연결 ===========================
-models.sequelize.sync().then(() => {
-    console.log("===========================DB 연결 성공===========================");
-}).catch(err => {
-    console.log("=========================== DB 연결 실패===========================");
+models.sequelize
+  .sync()
+  .then(() => {
+    console.log(
+      "===========================DB 연결 성공==========================="
+    );
+  })
+  .catch((err) => {
+    console.log(
+      "=========================== DB 연결 실패==========================="
+    );
     console.log(err);
-});
+  });
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -26,6 +38,10 @@ app.use(cookieParser());
 
 // =========================== 라우터 ===========================
 // 회원 관련
-app.use('/api/users', require('./routes/users'));
+app.use("/api/users", require("./routes/users"));
 
-app.listen(port, () => console.log(`=========================== port on ${port} ==========================`));
+app.listen(port, () =>
+  console.log(
+    `=========================== port on ${port} ==========================`
+  )
+);

@@ -16,7 +16,7 @@ function RegisterPage(props) {
         birthMonth: "",
         birthDay: "",
         phoneNumber: "",
-        addresses: ""
+        addresses: "",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -41,7 +41,7 @@ function RegisterPage(props) {
         phoneNumber: Yup.string()
           .matches(/^[0-9]{11}$/, "핸드폰번호 숫자만 입력해주세요")
           .required("핸드폰번호는 필수입력입니다."),
-        addresses: Yup.string().required("주소는 필수입력입니다.")
+        addresses: Yup.string().required("주소는 필수입력입니다."),
       })}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
@@ -49,21 +49,22 @@ function RegisterPage(props) {
         Axios({
           method: "POST",
           url: "http://localhost:5000/api/users/register",
-          data: values
+          data: values,
+          withCredentials: true,
         })
-          .then(response => {
+          .then((response) => {
             setSubmitting(false);
             console.log(response);
             props.history.push("/detailRegister");
           })
-          .catch(error => {
+          .catch((error) => {
             setSubmitting(false);
             console.log(error);
           });
         /////////////////////////////////////////////////////////////////////////////////////
       }}
     >
-      {props => {
+      {(props) => {
         return (
           <div id="register_page">
             <form id="register_form" onSubmit={props.handleSubmit}>
