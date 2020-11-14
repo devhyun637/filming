@@ -40,6 +40,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(255),
             allowNull: false
         },
+        email: {
+            field: "email",
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
         telNum: {
             field: "telNum",
             type: DataTypes.STRING(255),

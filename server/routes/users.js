@@ -24,24 +24,27 @@ router.post('/인석작업url',(req,res) => {
 
 //============================= 상세정보등록(개인) ========================================
 router.post('/personRegister',(req,res) => {
-   return response.status(200).json ({
+//   return response.status(200).json ({
         
-   });
+//   });
    
     userInfo = req.body;
 
     //정보 저장하기
     models.UserInfo.create({
-        englishName: EnglishName,
-        introduce: Introduce,
-        height: Height,
-        weight: Weight,
-        sns: SNS,
-        interests: Interests,
-        biography: Biography,
-        filmography: Filmography,
-        profileFiles: ProfileFiles,
-        portfolio: Portfolio
+        englishName: userInfo.englishName,
+        introduce: userInfo.introduce,
+        height: userInfo.height,
+        weight: userInfo.weight,
+        SNS_instagram: userInfo.SNS_instagram,
+        SNS_facebook: userInfo.SNS_facebook,
+        SNS_twitter: userInfo.SNS_twitter,
+        SNS_youtube: userInfo.SNS_youtube,
+        interests: userInfo.interests,
+        biography: userInfo.biography,
+        filmography: userInfo.filmography,
+        profileFiles: userInfo.profileFiles,
+        portfolio: userInfo.portfolio,
     }).then(result=>{
         return res.status(200).json({
             success:true,

@@ -9,8 +9,8 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             allowNull: true
         },
-        Portfolio:{//포트폴리오
-            field: "Portfolio",
+        portfolio:{//포트폴리오
+            field: "portfolio",
             type: DataTypes.STRING(255),
             unique: true,
             allowNull: true
