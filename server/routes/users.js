@@ -5,6 +5,7 @@ const models = require('../models/index');
 const jwt = require('jsonwebtoken');
 const secretObj = require('../config/jwt');
 const crypto = require('crypto');
+const { response } = require('express');
 
 let secret = require('../config/jwt').secret;
 
@@ -21,6 +22,47 @@ router.post('/인석작업url',(req,res) => {
     }
 })
 
+//============================= 상세정보등록(개인) ========================================
+router.post('/personRegister',(req,res) => {
+   return response.status(200).json ({
+        
+   });
+   
+    userInfo = req.body;
+
+    //정보 저장하기
+    models.UserInfo.create({
+        englishName: EnglishName,
+        introduce: Introduce,
+        height: Height,
+        weight: Weight,
+        sns: SNS,
+        interests: Interests,
+        biography: Biography,
+        filmography: Filmography,
+        profileFiles: ProfileFiles,
+        portfolio: Portfolio
+    }).then(result=>{
+        return res.status(200).json({
+            success:true,
+            result
+        });
+    }).catch(e => {
+        return res.status(400).json({
+            success:false,
+            e
+        })
+    });
+
+})
+
+//============================= 상세정보등록(기업) ========================================
+router.post('/compRegister',(req,res) => {
+   
+})
+
+
+//============================= 회원가입 ===========================================
 router.post('/register', (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     userInfo = req.body;
