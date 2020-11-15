@@ -9,19 +9,6 @@ const { response } = require("express");
 
 let secret = require("../config/jwt").secret;
 
-router.post("/인석작업url", (req, res) => {
-  let token = req.cookies.user;
-  let decoded = jwt.verify(token, secret);
-  if (decoded) {
-    //작업 할 코드
-  } else {
-    return res.status(400).json({
-      success: false,
-      meessage: "권한이 없습니다",
-    });
-  }
-});
-
 //============================= 상세정보등록(개인) ========================================
 router.post("/personRegister", async (req, res) => {
   //   return response.status(200).json ({
@@ -30,10 +17,12 @@ router.post("/personRegister", async (req, res) => {
 
   let userInfo = req.body;
   let fk_userId = req.cookies.id;
+  console.log(userInfo);
   //interest처리필요
   try {
     let userResult = await models.UserInfo.create({
       englishName: userInfo.englishName,
+      nickName: userInfo.nickName,
       introduce: userInfo.introduce,
       height: userInfo.height,
       weight: userInfo.weight,
@@ -43,8 +32,7 @@ router.post("/personRegister", async (req, res) => {
       SNS_youtube: userInfo.SNS_youtube,
       biography: userInfo.biography,
       filmography: userInfo.filmography,
-      profileFiles: userInfo.profileFiles,
-      portfolio: userInfo.portfolio,
+      fk_user_id: fk_userId,
     });
 
     await models.User.update(
@@ -87,7 +75,7 @@ router.post("/compRegister", async (req, res) => {
       portfolio1: userInfo.portfolio1,
       portfolio2: userInfo.portfolio2,
       portfolio3: userInfo.portfolio3,
-      fk_userId: fk_userId,
+      fk_user_id: fk_userId,
     });
     await models.User.update(
       {
@@ -155,6 +143,7 @@ router.post("/register", (req, res) => {
       });
     })
     .catch((e) => {
+      console.log(e);
       return res.status(400).json({
         success: false,
         e,
@@ -215,6 +204,28 @@ router.post("/login", async function (req, res) {
       email: result.dataValues.email,
       name: result.dataValues.name,
       token: token,
+    });
+  }
+});
+
+router.post("/profileInfo", async (req, res) => {
+  let id = req.cookies.id;
+  try {
+    let info = await models.User.findOne({
+      include: [{ model: models.UserInfo, where: { fk_userId: id } }],
+      where: {
+        id: id,
+      },
+    });
+    return res.status(200).json({
+      success: true,
+      userInfo: info,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      success: false,
+      error: e,
     });
   }
 });
