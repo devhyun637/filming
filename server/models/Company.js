@@ -40,7 +40,7 @@ module.exports = function (sequelize, DataTypes) {
         unique: false,
         allowNull: true,
       },
-      fields: {
+      category: {
         //회사 분야
         field: "category",
         type: DataTypes.STRING(255),

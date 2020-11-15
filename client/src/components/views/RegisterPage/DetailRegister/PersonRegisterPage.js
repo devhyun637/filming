@@ -288,7 +288,7 @@ function PersonRegisterPage() {
                 disabled
               />
             </div>
-
+                    
             <div id="user_introduction_sns">
               <h3>SNS 주소</h3>
               <Form.Item

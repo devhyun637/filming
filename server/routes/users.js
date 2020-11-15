@@ -23,34 +23,52 @@ router.post("/인석작업url", (req, res) => {
 });
 
 //============================= 상세정보등록(개인) ========================================
-router.post("/personRegister", (req, res) => {
-  userInfo = req.body;
+router.post("/personRegister", async (req, res) => {
+  //   return response.status(200).json ({
 
-  //정보 저장하기(인터레스팅만 따로 추가 필요)
-  models.UserInfo.create({
-    englishName: userInfo.englishName,
-    introduce: userInfo.introduce,
-    height: userInfo.height,
-    weight: userInfo.weight,
-    sns: userInfo.SNS,
-    biography: userInfo.biography,
-    filmography: userInfo.filmography,
-    profileFiles: userInfo.profileFiles,
-    portfolio: userInfo.portfolio,
-  })
-    .then((result) => {
-      return res.status(200).json({
-        success: true,
-        result,
-      });
-    })
-    .catch((e) => {
-      console.log(e);
-      return res.status(400).json({
-        success: false,
-        e,
-      });
+  //   });
+
+  let userInfo = req.body;
+  let fk_userId = req.cookies.id;
+  //interest처리필요
+  try {
+    let userResult = await models.UserInfo.create({
+      englishName: userInfo.englishName,
+      introduce: userInfo.introduce,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      SNS_instagram: userInfo.SNS_instagram,
+      SNS_facebook: userInfo.SNS_facebook,
+      SNS_twitter: userInfo.SNS_twitter,
+      SNS_youtube: userInfo.SNS_youtube,
+      biography: userInfo.biography,
+      filmography: userInfo.filmography,
+      profileFiles: userInfo.profileFiles,
+      portfolio: userInfo.portfolio,
     });
+
+    await models.User.update(
+      {
+        role: userInfo.Individual,
+      },
+      {
+        where: {
+          id: fk_userId,
+        },
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      user: userResult,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      success: false,
+      error: e,
+    });
+  }
 });
 
 //============================= 상세정보등록(기업) ========================================
