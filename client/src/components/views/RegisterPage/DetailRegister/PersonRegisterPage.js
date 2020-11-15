@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./DetailPage.css";
 
+import Axios from "axios";
+
 import { Form, Input, Upload, Button, message } from "antd";
 import CheckBox from "../Sections/CheckBox1";
 import { Interest } from "../Sections/Data1";
@@ -8,7 +10,7 @@ import FileUpload from "../../../utils/FileUpload";
 
 const { TextArea } = Input;
 
-function PersonRegisterPage() {
+function PersonRegisterPage(props) {
   const [EnglishName, setEnglishName] = useState("");
   const [Introduce, setIntroduce] = useState("");
   const [Height, setHeight] = useState("");
@@ -21,35 +23,35 @@ function PersonRegisterPage() {
   const [Portfolio, setPortfolio] = useState("");
 
   //onChange
-  const onEnglishNameHandler = event => {
+  const onEnglishNameHandler = (event) => {
     setEnglishName(event.currentTarget.value);
   };
 
-  const onIntroduceHandler = event => {
+  const onIntroduceHandler = (event) => {
     setIntroduce(event.currentTarget.value);
   };
 
-  const onHeightHandler = event => {
+  const onHeightHandler = (event) => {
     setHeight(event.currentTarget.value);
   };
 
-  const onWeightHandler = event => {
+  const onWeightHandler = (event) => {
     setWeight(event.currentTarget.value);
   };
 
-  const onBiographyHandler = event => {
+  const onBiographyHandler = (event) => {
     setBiography(event.currentTarget.value);
   };
 
-  const onFilmographyHandler = event => {
+  const onFilmographyHandler = (event) => {
     setFilmography(event.currentTarget.value);
   };
 
-  const onPortfolioHandler = event => {
+  const onPortfolioHandler = (event) => {
     setPortfolio(event.currentTarget.value);
   };
 
-  const onSNSHandler = event => {
+  const onSNSHandler = (event) => {
     setSNS(event.currentTarget.value);
   };
 
@@ -65,7 +67,7 @@ function PersonRegisterPage() {
     name: "file",
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     headers: {
-      authorization: "authorization-text"
+      authorization: "authorization-text",
     },
 
     onChange(info) {
@@ -80,12 +82,12 @@ function PersonRegisterPage() {
           message.error(`${info.file.name} file upload failed.`);
         }
       }
-    }
+    },
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ///////////////////////////// 서버에 값 넘기기 /////////////////////////////////////////////////////////////////////////
-  const onSubmitHandler = event => {
+  const onSubmitHandler = (event) => {
     // event.preventDefault();
 
     let body = {
@@ -99,19 +101,20 @@ function PersonRegisterPage() {
       biography: Biography,
       filmography: Filmography,
       profileFiles: ProfileFiles,
-      portfolio: Portfolio
+      portfolio: Portfolio,
     };
 
     console.log(body);
 
     // 회원가입 서버 연동
-    // Axios.post("/api/users/register", body).then(response => {
-    //   if (response.data.loginSuccess) {
-    //     props.history.push("/login");
-    //   } else {
-    //     alert("Error");
-    //   }
-    // });
+    Axios.post("/api/users/personRegister", body).then((response) => {
+      console.log(response);
+      if (response.data.success) {
+        props.history.push("/login");
+      } else {
+        alert("Error");
+      }
+    });
   };
   ////////////////////////////////////////////////////////////////
 
@@ -145,12 +148,12 @@ function PersonRegisterPage() {
                   { required: true, message: "영문 이름 입력은 필수입니다." },
                   {
                     pattern: /^[a-zA-Z\s]+$/,
-                    message: "영어만 입력할 수 있습니다."
+                    message: "영어만 입력할 수 있습니다.",
                   },
                   {
                     min: 3,
-                    message: "최소 3글자 이상 입력해야합니다."
-                  }
+                    message: "최소 3글자 이상 입력해야합니다.",
+                  },
                 ]}
               >
                 <Input
@@ -166,7 +169,7 @@ function PersonRegisterPage() {
               <Form.Item
                 name="user_introduction"
                 rules={[
-                  { required: true, message: "자기소개 입력은 필수입니다." }
+                  { required: true, message: "자기소개 입력은 필수입니다." },
                 ]}
               >
                 <TextArea
@@ -224,12 +227,12 @@ function PersonRegisterPage() {
                     { required: true, message: "신장 입력은 필수입니다." },
                     {
                       pattern: /^[0-9]*$/,
-                      message: "숫자만 입력"
+                      message: "숫자만 입력",
                     },
                     {
                       max: 3,
-                      message: "범위 확인"
-                    }
+                      message: "범위 확인",
+                    },
                   ]}
                 >
                   <Input
@@ -249,12 +252,12 @@ function PersonRegisterPage() {
                     { required: true, message: "몸무게 입력은 필수입니다." },
                     {
                       pattern: /^[0-9]*$/,
-                      message: "숫자만 입력"
+                      message: "숫자만 입력",
                     },
                     {
                       max: 3,
-                      message: "범위 확인"
-                    }
+                      message: "범위 확인",
+                    },
                   ]}
                 >
                   <Input
@@ -288,14 +291,14 @@ function PersonRegisterPage() {
                 disabled
               />
             </div>
-                    
+
             <div id="user_introduction_sns">
               <h3>SNS 주소</h3>
               <Form.Item
                 name="user_info_sns"
                 rules={[
                   { required: true, message: "SNS 주소 입력은 필수입니다." },
-                  { type: "url", message: "링크를 입력해주세요" }
+                  { type: "url", message: "링크를 입력해주세요" },
                 ]}
               >
                 <Input
@@ -316,7 +319,7 @@ function PersonRegisterPage() {
                 id="interests"
                 type="checkbox"
                 list={Interest}
-                handleFilters={filters => handleFilters(filters, "interest")}
+                handleFilters={(filters) => handleFilters(filters, "interest")}
               />
             </div>
           </section>
@@ -326,7 +329,7 @@ function PersonRegisterPage() {
             <Form.Item
               name="user_introduction_biography"
               rules={[
-                { required: true, message: "바이오그래피 입력은 필수입니다." }
+                { required: true, message: "바이오그래피 입력은 필수입니다." },
               ]}
             >
               <TextArea
@@ -344,7 +347,7 @@ function PersonRegisterPage() {
             <Form.Item
               name="user_introduction_filmography"
               rules={[
-                { required: true, message: "필모그래피 입력은 필수입니다." }
+                { required: true, message: "필모그래피 입력은 필수입니다." },
               ]}
             >
               <TextArea
@@ -373,7 +376,7 @@ function PersonRegisterPage() {
                 name="user_introduction_portfolio"
                 rules={[
                   { required: true, message: "포트폴리오 입력은 필수입니다." },
-                  { type: "url", message: "링크를 입력해주세요" }
+                  { type: "url", message: "링크를 입력해주세요" },
                 ]}
               >
                 <Input
