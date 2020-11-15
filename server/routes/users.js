@@ -24,18 +24,15 @@ router.post("/인석작업url", (req, res) => {
 
 //============================= 상세정보등록(개인) ========================================
 router.post("/personRegister", (req, res) => {
-  return response.status(200).json({});
-
   userInfo = req.body;
 
-  //정보 저장하기
+  //정보 저장하기(인터레스팅만 따로 추가 필요)
   models.UserInfo.create({
     englishName: userInfo.englishName,
     introduce: userInfo.introduce,
     height: userInfo.height,
     weight: userInfo.weight,
     sns: userInfo.SNS,
-    interests: userInfo.interests,
     biography: userInfo.biography,
     filmography: userInfo.filmography,
     profileFiles: userInfo.profileFiles,
@@ -48,6 +45,7 @@ router.post("/personRegister", (req, res) => {
       });
     })
     .catch((e) => {
+      console.log(e);
       return res.status(400).json({
         success: false,
         e,
@@ -73,14 +71,13 @@ router.post("/compRegister", async (req, res) => {
       portfolio3: userInfo.portfolio3,
       fk_userId: fk_userId,
     });
-
     await models.User.update(
       {
         role: userInfo.Individual,
       },
       {
         where: {
-          userId: fk_userId,
+          id: fk_userId,
         },
       }
     );
@@ -100,7 +97,6 @@ router.post("/compRegister", async (req, res) => {
 
 //============================= 회원가입 ===========================================
 router.post("/register", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   userInfo = req.body;
   //birthDateInfo = userInfo.birthDate.split('/');
   //userBirth = new Date(birthDateInfo[0], birthDateInfo[1] - 1, birthDateInfo[2]);
