@@ -15,7 +15,10 @@ function PersonRegisterPage(props) {
   const [Introduce, setIntroduce] = useState("");
   const [Height, setHeight] = useState("");
   const [Weight, setWeight] = useState("");
-  const [SNS, setSNS] = useState("");
+  const [Facebook, setFacebook] = useState("");
+  const [Instagram, setInstagram] = useState("");
+  const [Twitter, setTwitter] = useState("");
+  const [Youtube, setYoutube] = useState("");
   const [Interests, setInterests] = useState([]);
   const [Biography, setBiography] = useState("");
   const [Filmography, setFilmography] = useState("");
@@ -23,36 +26,45 @@ function PersonRegisterPage(props) {
   const [Portfolio, setPortfolio] = useState("");
 
   //onChange
-  const onEnglishNameHandler = (event) => {
+  const onEnglishNameHandler = event => {
     setEnglishName(event.currentTarget.value);
   };
 
-  const onIntroduceHandler = (event) => {
+  const onIntroduceHandler = event => {
     setIntroduce(event.currentTarget.value);
   };
 
-  const onHeightHandler = (event) => {
+  const onHeightHandler = event => {
     setHeight(event.currentTarget.value);
   };
 
-  const onWeightHandler = (event) => {
+  const onWeightHandler = event => {
     setWeight(event.currentTarget.value);
   };
 
-  const onBiographyHandler = (event) => {
+  const onBiographyHandler = event => {
     setBiography(event.currentTarget.value);
   };
 
-  const onFilmographyHandler = (event) => {
+  const onFilmographyHandler = event => {
     setFilmography(event.currentTarget.value);
   };
 
-  const onPortfolioHandler = (event) => {
+  const onPortfolioHandler = event => {
     setPortfolio(event.currentTarget.value);
   };
 
-  const onSNSHandler = (event) => {
-    setSNS(event.currentTarget.value);
+  const onFacebookUrlHandler = event => {
+    setFacebook(event.currentTarget.value);
+  };
+  const onInstagramUrlHandler = event => {
+    setInstagram(event.currentTarget.value);
+  };
+  const onTwitterUrlHandler = event => {
+    setTwitter(event.currentTarget.value);
+  };
+  const onYoutubeUrlHandler = event => {
+    setYoutube(event.currentTarget.value);
   };
 
   const handleFilters = (filters, interests) => {
@@ -62,12 +74,12 @@ function PersonRegisterPage(props) {
     setInterests(newInterests);
   };
 
-  /////////////////////////////프로필 파일 업로드 관련//////////////////////////////////////////////////////////////////
+  //프로필 파일 업로드
   const upload = {
     name: "file",
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     headers: {
-      authorization: "authorization-text",
+      authorization: "authorization-text"
     },
 
     onChange(info) {
@@ -82,12 +94,11 @@ function PersonRegisterPage(props) {
           message.error(`${info.file.name} file upload failed.`);
         }
       }
-    },
+    }
   };
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  ///////////////////////////// 서버에 값 넘기기 /////////////////////////////////////////////////////////////////////////
-  const onSubmitHandler = (event) => {
+  //서버값 넘기기
+  const onSubmitHandler = event => {
     // event.preventDefault();
 
     let body = {
@@ -96,18 +107,18 @@ function PersonRegisterPage(props) {
       introduce: Introduce,
       height: Height,
       weight: Weight,
-      sns: SNS,
+      sns: [Facebook, Instagram, Twitter, Youtube],
       interests: Interests,
       biography: Biography,
       filmography: Filmography,
       profileFiles: ProfileFiles,
-      portfolio: Portfolio,
+      portfolio: Portfolio
     };
 
     console.log(body);
 
     // 회원가입 서버 연동
-    Axios.post("/api/users/personRegister", body).then((response) => {
+    Axios.post("/api/users/personRegister", body).then(response => {
       console.log(response);
       if (response.data.success) {
         props.history.push("/login");
@@ -116,7 +127,6 @@ function PersonRegisterPage(props) {
       }
     });
   };
-  ////////////////////////////////////////////////////////////////
 
   return (
     <div id="person_detail">
@@ -148,12 +158,12 @@ function PersonRegisterPage(props) {
                   { required: true, message: "영문 이름 입력은 필수입니다." },
                   {
                     pattern: /^[a-zA-Z\s]+$/,
-                    message: "영어만 입력할 수 있습니다.",
+                    message: "영어만 입력할 수 있습니다."
                   },
                   {
                     min: 3,
-                    message: "최소 3글자 이상 입력해야합니다.",
-                  },
+                    message: "최소 3글자 이상 입력해야합니다."
+                  }
                 ]}
               >
                 <Input
@@ -169,7 +179,7 @@ function PersonRegisterPage(props) {
               <Form.Item
                 name="user_introduction"
                 rules={[
-                  { required: true, message: "자기소개 입력은 필수입니다." },
+                  { required: true, message: "자기소개 입력은 필수입니다." }
                 ]}
               >
                 <TextArea
@@ -184,9 +194,9 @@ function PersonRegisterPage(props) {
           </section>
 
           <section className="profile_info_personal_information">
-            <div id="user_introduction_birthday">
+            <div className="birthday_container">
               <h3>생년월일 </h3>
-              <div>
+              <div id="user_introduction_birthday">
                 <input
                   style={{ backgroundColor: "#e5e5e5" }}
                   type="text"
@@ -208,12 +218,32 @@ function PersonRegisterPage(props) {
               </div>
             </div>
 
+            <div id="user_introduction_phone">
+              <h3>연락처 </h3>
+              <input
+                style={{ backgroundColor: "#e5e5e5" }}
+                type="text"
+                placeholder="연락처"
+                disabled
+              />
+            </div>
+
             <div id="user_introduction_address">
               <h3>주소 </h3>
               <input
                 style={{ backgroundColor: "#e5e5e5" }}
                 type="text"
                 placeholder="집주소"
+                disabled
+              />
+            </div>
+
+            <div id="user_introduction_email">
+              <h3>이메일 </h3>
+              <input
+                style={{ backgroundColor: "#e5e5e5" }}
+                type="text"
+                placeholder="이메일"
                 disabled
               />
             </div>
@@ -227,12 +257,12 @@ function PersonRegisterPage(props) {
                     { required: true, message: "신장 입력은 필수입니다." },
                     {
                       pattern: /^[0-9]*$/,
-                      message: "숫자만 입력",
+                      message: "숫자만 입력"
                     },
                     {
                       max: 3,
-                      message: "범위 확인",
-                    },
+                      message: "범위 확인"
+                    }
                   ]}
                 >
                   <Input
@@ -252,12 +282,12 @@ function PersonRegisterPage(props) {
                     { required: true, message: "몸무게 입력은 필수입니다." },
                     {
                       pattern: /^[0-9]*$/,
-                      message: "숫자만 입력",
+                      message: "숫자만 입력"
                     },
                     {
                       max: 3,
-                      message: "범위 확인",
-                    },
+                      message: "범위 확인"
+                    }
                   ]}
                 >
                   <Input
@@ -269,46 +299,37 @@ function PersonRegisterPage(props) {
                 </Form.Item>
               </div>
             </div>
-          </section>
-
-          <section className="profile_info_personal_information">
-            <div id="user_introduction_phone">
-              <h3>연락처 </h3>
-              <input
-                style={{ backgroundColor: "#e5e5e5" }}
-                type="text"
-                placeholder="연락처"
-                disabled
-              />
-            </div>
-
-            <div id="user_introduction_email">
-              <h3>이메일 </h3>
-              <input
-                style={{ backgroundColor: "#e5e5e5" }}
-                type="text"
-                placeholder="이메일"
-                disabled
-              />
-            </div>
 
             <div id="user_introduction_sns">
               <h3>SNS 주소</h3>
-              <Form.Item
-                name="user_info_sns"
-                rules={[
-                  { required: true, message: "SNS 주소 입력은 필수입니다." },
-                  { type: "url", message: "링크를 입력해주세요" },
-                ]}
-              >
-                <Input
-                  id="user_info_sns"
-                  placeholder="SNS 주소"
-                  style={{ borderRadius: 0 }}
-                  value={SNS}
-                  onChange={onSNSHandler}
-                />
-              </Form.Item>
+              <Input
+                placeholder="페이스북 주소"
+                id="facebook_url"
+                style={{ borderRadius: 0 }}
+                value={Facebook}
+                onChange={onFacebookUrlHandler}
+              />
+              <Input
+                placeholder="인스타그램 주소"
+                id="instagram_url"
+                style={{ borderRadius: 0 }}
+                value={Instagram}
+                onChange={onInstagramUrlHandler}
+              />
+              <Input
+                placeholder="트위터 주소"
+                id="twitter_url"
+                style={{ borderRadius: 0 }}
+                value={Twitter}
+                onChange={onTwitterUrlHandler}
+              />
+              <Input
+                placeholder="유튜브 주소"
+                id="youtube_url"
+                style={{ borderRadius: 0 }}
+                value={Youtube}
+                onChange={onYoutubeUrlHandler}
+              />
             </div>
           </section>
 
@@ -319,7 +340,7 @@ function PersonRegisterPage(props) {
                 id="interests"
                 type="checkbox"
                 list={Interest}
-                handleFilters={(filters) => handleFilters(filters, "interest")}
+                handleFilters={filters => handleFilters(filters, "interest")}
               />
             </div>
           </section>
@@ -329,7 +350,7 @@ function PersonRegisterPage(props) {
             <Form.Item
               name="user_introduction_biography"
               rules={[
-                { required: true, message: "바이오그래피 입력은 필수입니다." },
+                { required: true, message: "바이오그래피 입력은 필수입니다." }
               ]}
             >
               <TextArea
@@ -347,7 +368,7 @@ function PersonRegisterPage(props) {
             <Form.Item
               name="user_introduction_filmography"
               rules={[
-                { required: true, message: "필모그래피 입력은 필수입니다." },
+                { required: true, message: "필모그래피 입력은 필수입니다." }
               ]}
             >
               <TextArea
@@ -376,7 +397,7 @@ function PersonRegisterPage(props) {
                 name="user_introduction_portfolio"
                 rules={[
                   { required: true, message: "포트폴리오 입력은 필수입니다." },
-                  { type: "url", message: "링크를 입력해주세요" },
+                  { type: "url", message: "링크를 입력해주세요" }
                 ]}
               >
                 <Input
