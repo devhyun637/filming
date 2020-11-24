@@ -137,7 +137,7 @@ function ProfilePage(props) {
                 <Count>11</Count>
               </UserInfoListLi>
 
-              <UserInfoListLi>
+              {/* <UserInfoListLi>
                 <Link href="#">
                   <FontAwesomeIcon icon={farEnvelope} size="lg" />
                 </Link>
@@ -149,7 +149,7 @@ function ProfilePage(props) {
                   <FontAwesomeIcon icon={farBookmark} size="lg" />
                 </Link>
                 <Count>11</Count>
-              </UserInfoListLi>
+              </UserInfoListLi> */}
             </UserInfoList>
           </div>
         </PersonaInfo>

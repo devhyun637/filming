@@ -5,18 +5,24 @@ import * as Yup from "yup";
 import "./RegisterPage.css";
 
 function RegisterPage(props) {
+  const genderOption = [
+    { key: "남자", value: "1" },
+    { key: "여자", value: "2" }
+  ];
+
   return (
     <Formik
       initialValues={{
-        email: "",
+        userId: "",
         password: "",
         passwordConfirm: "",
         name: "",
+        gender: "",
         birthYear: "",
         birthMonth: "",
         birthDay: "",
-        phoneNumber: "",
-        addresses: "",
+        telNum: "",
+        addresses: ""
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -29,6 +35,7 @@ function RegisterPage(props) {
           .oneOf([Yup.ref("password"), null], "비밀번호와 일치하지 않습니다.")
           .required("비밀번호 확인은 필수입력입니다."),
         name: Yup.string().required("이름은 필수입력입니다."),
+        userGender: Yup.string().required("성별 선택은 필수입력입니다."),
         birthYear: Yup.string()
           .matches(/^[0-9]{4}$/, "태어난 연도의 4자리 숫자를 입력해주세요")
           .required("생년월일은 필수입력입니다."),
@@ -41,7 +48,7 @@ function RegisterPage(props) {
         phoneNumber: Yup.string()
           .matches(/^[0-9]{11}$/, "핸드폰번호 숫자만 입력해주세요")
           .required("핸드폰번호는 필수입력입니다."),
-        addresses: Yup.string().required("주소는 필수입력입니다."),
+        addresses: Yup.string().required("주소는 필수입력입니다.")
       })}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
@@ -50,21 +57,21 @@ function RegisterPage(props) {
           method: "POST",
           url: "http://localhost:5000/api/users/register",
           data: values,
-          withCredentials: true,
+          withCredentials: true
         })
-          .then((response) => {
+          .then(response => {
             setSubmitting(false);
             console.log(response);
             props.history.push("/detailRegister");
           })
-          .catch((error) => {
+          .catch(error => {
             setSubmitting(false);
             console.log(error);
           });
-        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
       }}
     >
-      {(props) => {
+      {props => {
         return (
           <div id="register_page">
             <form id="register_form" onSubmit={props.handleSubmit}>
@@ -83,11 +90,9 @@ function RegisterPage(props) {
                   component="div"
                 />
                 <br />
-                {/* ///////////////////////////// 여기서 이메일 중복 확인하는거 어떤지///////////////////// */}
-                <button type="submit" disabled>
+                {/* <button type="submit" disabled>
                   인증 메일 전송
-                </button>
-                {/* /////////////////////////////////////////////////////////////////////////////// */}
+                </button> */}
               </div>
 
               <div id="user_password" className="register">
@@ -136,6 +141,36 @@ function RegisterPage(props) {
                 <ErrorMessage
                   style={{ color: " #D30000" }}
                   name="name"
+                  component="div"
+                />
+              </div>
+
+              <div id="user_gender" className="register">
+                <label>성별 </label>
+                <div id="gender_select">
+                  <Field name="userGender">
+                    {({ field }) => {
+                      return genderOption.map(option => {
+                        return (
+                          <React.Fragment key={option.key}>
+                            <input
+                              type="radio"
+                              id={option.value}
+                              name="gender"
+                              {...field}
+                              value={option.value}
+                              checked={field.value === option.value}
+                            />
+                            <label htmlFor={option.value}>{option.key}</label>
+                          </React.Fragment>
+                        );
+                      });
+                    }}
+                  </Field>
+                </div>
+                <ErrorMessage
+                  style={{ color: " #D30000" }}
+                  name="userGender"
                   component="div"
                 />
               </div>
@@ -209,12 +244,6 @@ function RegisterPage(props) {
               >
                 가입하기
               </button>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
             </form>
           </div>
         );

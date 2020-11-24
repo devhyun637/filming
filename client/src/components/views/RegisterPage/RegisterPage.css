@@ -21,6 +21,7 @@ h1 {
 
 label {
   font-size: 1rem;
+  display: block;
 }
 
 input {
@@ -90,14 +91,6 @@ button {
   border: 1px solid #cdcfd8;
 }
 
-/* #user_id button:focus {
-  outline-color: #80a5d7;
-}
-
-#user_id button:hover {
-  background-color: #6092cd;
-} */
-
 /* 비밀번호 */
 
 #password {
@@ -139,14 +132,6 @@ button {
   border: 1px solid #cdcfd8;
 }
 
-/* #user_address button:focus, #user_phone button:focus, .ant-collapse-header:focus {
-  outline-color: #80a5d7;
-} */
-
-/* #user_address button:hover, #user_phone button:hover {
-  background-color: #6092cd;
-} */
-
 #user_phone .certification {
   width: 100%;
   background-color: #f4f4f3;
@@ -177,6 +162,26 @@ button {
   margin: 0 20px;
 }
 
-/* .ant-collapse-content-box {
+/* 성별 */
+
+#gender_select {
+  margin-top: 3px;
+  display: flex;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+#gender_select label {
+  height: 50px;
+  border: 0.5px solid #ced0d9;
+  width: 50%;
   text-align: center;
-} */
+  line-height: 50px;
+}
+
+#gender_select input[type='radio']:checked+label {
+  border: 1px solid #2073c6;
+  color: #2073c6;
+}
