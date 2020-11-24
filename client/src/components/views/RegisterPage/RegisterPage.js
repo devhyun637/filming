@@ -13,7 +13,7 @@ function RegisterPage(props) {
   return (
     <Formik
       initialValues={{
-        userId: "",
+        email: "",
         password: "",
         passwordConfirm: "",
         name: "",
@@ -21,7 +21,7 @@ function RegisterPage(props) {
         birthYear: "",
         birthMonth: "",
         birthDay: "",
-        telNum: "",
+        phoneNumber: "",
         addresses: ""
       }}
       validationSchema={Yup.object().shape({
