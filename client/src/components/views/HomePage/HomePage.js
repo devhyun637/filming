@@ -13,11 +13,7 @@ function HomePage() {
 
       <section id="profile">
         <h2>프로필</h2>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
+        <img src={require("./profile.png")} width="900px" height="1250px"/>
       </section>
     </div>
   );

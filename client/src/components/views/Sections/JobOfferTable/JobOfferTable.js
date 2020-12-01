@@ -3,7 +3,8 @@ import "./JobOfferTable.css";
 
 function JobOfferTable() {
   return (
-    <table className="job-offer-table">
+    <img src={require("./job.png")} width="900px" height="475px"/>
+    /*<table className="job-offer-table">
       <caption className="job-offer-table-title">구인게시판</caption>
       <thead>
         <tr>
@@ -24,7 +25,7 @@ function JobOfferTable() {
           <td>5</td>
         </tr>
       </tbody>
-    </table>
+    </table>*/
   );
 }
 
