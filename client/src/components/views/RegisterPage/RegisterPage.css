@@ -1,6 +1,6 @@
 /* 회원가입 페이지 */
 
-h1 {
+#registerPageSubject {
   text-align: center;
 }
 
@@ -113,16 +113,19 @@ button {
 
 /* 휴대폰번호, 주소*/
 
-#user_address label, #user_phone label {
+#user_address label,
+#user_phone label {
   display: block;
 }
 
-#address, #phone_number {
+#address,
+#phone_number {
   width: 73%;
   margin-right: 7px;
 }
 
-#user_address button, #user_phone button {
+#user_address button,
+#user_phone button {
   width: 25%;
   background-color: #cdcfd8;
   font-size: 1rem;
@@ -169,7 +172,7 @@ button {
   display: flex;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   display: none;
 }
 
@@ -181,7 +184,7 @@ input[type='radio'] {
   line-height: 50px;
 }
 
-#gender_select input[type='radio']:checked+label {
+#gender_select input[type="radio"]:checked + label {
   border: 1px solid #2073c6;
   color: #2073c6;
 }

@@ -9,6 +9,7 @@ import DetailRegisterPage from "./components/views/RegisterPage/DetailRegister/D
 import CompanyRegisterPage from "./components/views/RegisterPage/DetailRegister/CompanyRegisterPage";
 import PersonRegisterPage from "./components/views/RegisterPage/DetailRegister/PersonRegisterPage";
 import HomePage from "./components/views/HomePage/HomePage";
+import RecuritingPage from "./components/views/RecruitingPage/RecuritingPage";
 
 import ProfilePage from "./components/views/ProfilePage/ProfilePage";
 
@@ -28,6 +29,8 @@ function App() {
           <Route exact path="/personRegister" component={PersonRegisterPage} />
 
           <Route exact path="/profile" component={ProfilePage} />
+
+          <Route exact path="/recruit" component={RecuritingPage} />
         </Switch>
       </div>
     </Router>

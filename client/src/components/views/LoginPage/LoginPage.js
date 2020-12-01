@@ -11,7 +11,7 @@ function LoginPage(props) {
     <Formik
       initialValues={{
         email: "",
-        password: ""
+        password: "",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -19,7 +19,7 @@ function LoginPage(props) {
           .required("이메일은 필수입력입니다."),
         password: Yup.string()
           .min(8, "비밀번호는 8글자 이상입니다.")
-          .required("비밀번호는 필수입력입니다.")
+          .required("비밀번호는 필수입력입니다."),
       })}
       onSubmit={(values, { setSubmitting }) => {
         // console.log(values);
@@ -28,25 +28,25 @@ function LoginPage(props) {
           method: "POST",
           url: "http://localhost:5000/api/users/login",
           data: values,
-          withCredentials:true
+          withCredentials: true,
         })
-          .then(response => {
+          .then((response) => {
             setSubmitting(false);
             console.log(response);
             props.history.push("/");
           })
-          .catch(error => {
+          .catch((error) => {
             setSubmitting(false);
             console.log(error);
           });
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
       }}
     >
-      {props => {
+      {(props) => {
         return (
           <div id="login_page">
             <form id="login_form" onSubmit={props.handleSubmit}>
-              <h1>로그인</h1>
+              <h1 id="loginPageSubject">로그인</h1>
               <div id="user_id" className="login">
                 <label htmlFor="id">아이디(이메일) </label>
                 <Field

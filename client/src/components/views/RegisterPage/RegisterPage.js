@@ -7,7 +7,7 @@ import "./RegisterPage.css";
 function RegisterPage(props) {
   const genderOption = [
     { key: "남자", value: "1" },
-    { key: "여자", value: "2" }
+    { key: "여자", value: "2" },
   ];
 
   return (
@@ -22,7 +22,7 @@ function RegisterPage(props) {
         birthMonth: "",
         birthDay: "",
         phoneNumber: "",
-        addresses: ""
+        addresses: "",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -48,7 +48,7 @@ function RegisterPage(props) {
         phoneNumber: Yup.string()
           .matches(/^[0-9]{11}$/, "핸드폰번호 숫자만 입력해주세요")
           .required("핸드폰번호는 필수입력입니다."),
-        addresses: Yup.string().required("주소는 필수입력입니다.")
+        addresses: Yup.string().required("주소는 필수입력입니다."),
       })}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
@@ -57,25 +57,25 @@ function RegisterPage(props) {
           method: "POST",
           url: "http://localhost:5000/api/users/register",
           data: values,
-          withCredentials: true
+          withCredentials: true,
         })
-          .then(response => {
+          .then((response) => {
             setSubmitting(false);
             console.log(response);
             props.history.push("/detailRegister");
           })
-          .catch(error => {
+          .catch((error) => {
             setSubmitting(false);
             console.log(error);
           });
         /////////////////////////////////////////////////////////////////////////////////
       }}
     >
-      {props => {
+      {(props) => {
         return (
           <div id="register_page">
             <form id="register_form" onSubmit={props.handleSubmit}>
-              <h1>회원가입</h1>
+              <h1 id="registerPageSubject">회원가입</h1>
               <div id="user_id" className="register">
                 <label htmlFor="id">아이디(이메일) </label>
                 <Field
@@ -150,7 +150,7 @@ function RegisterPage(props) {
                 <div id="gender_select">
                   <Field name="userGender">
                     {({ field }) => {
-                      return genderOption.map(option => {
+                      return genderOption.map((option) => {
                         return (
                           <React.Fragment key={option.key}>
                             <input
