@@ -10,7 +10,7 @@
 }
 
 #detail_register_page ul {
-  width: 50%;
+  /* width: 50%; */
   list-style: none;
   margin: 60px auto;
   text-align: center;
@@ -44,14 +44,6 @@
 }
 
 /* 개인회원 페이지 */
-
-/* 개인회원 페이지 */
-
-/* 개인회원 페이지 */
-
-/* #person_detail {
-  padding-top: 100px;
-} */
 
 #person_profile_info {
   width: 60%;
@@ -125,14 +117,18 @@ textarea::placeholder {
   margin-bottom: 15px;
 }
 
+#user_introduction_birthday {
+  display: flex;
+  justify-content: space-between;
+}
+
 #user_introduction_birthday input {
-  margin-right: 10px;
-  display: inline-block;
   width: 30%;
 }
 
-#user_introduction_address input {
-  width: 95%;
+#user_introduction_body {
+  display: flex;
+  justify-content: space-between;
 }
 
 #user_introduction_body input {
@@ -143,22 +139,23 @@ textarea::placeholder {
 #user_introduction_body input::placeholder {
   font-size: 14px;
   color: #cdcfd8;
-  padding: 0px;
 }
 
-.user_introduction_height {
-  display: inline-block;
+.user_introduction_height, .user_introduction_weight {
   width: 47%;
-  margin-right: 12px;
 }
 
-.user_introduction_weight {
-  display: inline-block;
-  width: 45%;
+#profile_info_height, #profile_info_weight {
+  margin: 0;
+  padding: 0;
 }
 
-#user_info_sns, #profile_info_weight, #profile_info_height {
-  margin-bottom: 0px;
+#user_introduction_sns {
+  margin-bottom: 20px;
+}
+
+#user_introduction_sns>input {
+  margin-bottom: 5px;
 }
 
 /* 관심분야 작성란 */
