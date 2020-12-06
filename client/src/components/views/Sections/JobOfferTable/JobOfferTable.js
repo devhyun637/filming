@@ -1,31 +1,75 @@
 import React from "react";
-import "./JobOfferTable.css";
+import { Link } from "react-router-dom";
 
-function JobOfferTable() {
+import "./JobOfferTable.css";
+import styled from "styled-components";
+
+import Tags from "./Tags";
+
+const TableBody = styled.tbody``;
+const TableBodyRow = styled.tr`
+  font-size: 1rem;
+  font-weight: 100;
+`;
+const TableBodyData = styled.td`
+  padding-left: 1rem;
+`;
+
+function JobOfferTable(props) {
+  const tableData = props.data;
+
   return (
-    <img src={require("./job.png")} width="900px" height="475px"/>
-    /*<table className="job-offer-table">
-      <caption className="job-offer-table-title">구인게시판</caption>
-      <thead>
-        <tr>
-          <th>1111</th>
-          <th>2222</th>
-          <th>3333</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>4</td>
-          <td>5</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>5</td>
-          <td>5</td>
-        </tr>
-      </tbody>
-    </table>*/
+    <section id="job_offer">
+      <table>
+        <thead className="table-head">
+          <tr>
+            <th>분류</th>
+            <th>모집</th>
+            <th>날짜</th>
+          </tr>
+        </thead>
+
+        <TableBody className="table-body">
+          {tableData.map((value) => (
+            <TableBodyRow key={value.id}>
+              <TableBodyData className="post-classification">
+                <Tags name={value.tag} />
+              </TableBodyData>
+              <TableBodyData className="post-title">
+                <Link
+                  className="post-title-link"
+                  to={{
+                    pathname: `/job-recurit/${value.id}`,
+                    state: {
+                      id: `${value.id}`,
+                      tag: `${value.tag}`,
+                      title: `${value.title}`,
+                      date: `${value.date}`,
+                      userName: `${value.userName}`,
+                      companyName: `${value.companyName}`,
+                      filmName: `${value.filmName}`,
+                      companyAddress: `${value.companyAddress}`,
+                      userAddress: `${value.userAddress}`,
+                      field: `${value.filmName}`,
+                      period: `${value.period}`,
+                      pay: `${value.pay}`,
+                      manager: `${value.manager}`,
+                      deadline: `${value.deadline}`,
+                      discipt: `${value.discipt}`,
+                    },
+                  }}
+                >
+                  {value.title}
+                </Link>
+              </TableBodyData>
+              <TableBodyData className="post-written-date">
+                {value.date}
+              </TableBodyData>
+            </TableBodyRow>
+          ))}
+        </TableBody>
+      </table>
+    </section>
   );
 }
 
