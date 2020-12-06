@@ -6,14 +6,14 @@ import ImageSlide from "./Sections/ImageSlider";
 
 import {
   faHeart,
-  faBookmark,
-  faEnvelope,
+  // faBookmark,
+  // faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faEnvelope as farEnvelope,
-  faHeart as farHeart,
-  faBookmark as farBookmark,
-} from "@fortawesome/free-regular-svg-icons";
+// import {
+//   faEnvelope as farEnvelope,
+//   faHeart as farHeart,
+//   faBookmark as farBookmark,
+// } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
@@ -102,21 +102,19 @@ function ProfilePage(props) {
   const [weight, setWeight] = useState("");
   // const [portfolio, setPortfolio] = useState("");
 
-  //////////////////////////////////회원 정보 가져오기////////////////////////////////
   useEffect(() => {
-    //오른쪽 프롶필 정보 가져오기
     axios.get("/api/users/userInfo").then((response) => {
-      console.log(response);
-      setUserName(response.data.userInfo.name);
-      setAddress(response.data.userInfo.address);
-      setBiography(response.data.userInfo.UserInfo.biography);
-      setFilmography(response.data.userInfo.UserInfo.filmography);
-      setIntroduce(response.data.userInfo.UserInfo.introduce);
-      setHeight(response.data.userInfo.UserInfo.height);
-      setWeight(response.data.userInfo.UserInfo.weight);
+      const { userInfo } = response.data;
+
+      setUserName(userInfo.name);
+      setAddress(userInfo.address);
+      setBiography(userInfo.UserInfo.biography);
+      setFilmography(userInfo.UserInfo.filmography);
+      setIntroduce(userInfo.UserInfo.introduce);
+      setHeight(userInfo.UserInfo.height);
+      setWeight(userInfo.UserInfo.weight);
     });
   }, []);
-  //////////////////////////////////회원 정보 가져오기////////////////////////////////
 
   const exampleText = `Contrary to popular belief, Lorem Ipsum is not simply random text. \n It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College`;
 
