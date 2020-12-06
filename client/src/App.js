@@ -46,11 +46,6 @@ function App() {
 
           <Route exact path="/profile" component={Auth(ProfilePage, true)} />
           <Route exact path="/job-recurit/:id" component={RecuritingPage} />
-          <Route
-            exact
-            path="/job-recurit/:id"
-            component={Auth(RecuritingPage, true)}
-          />
         </Switch>
       </div>
     </Router>
