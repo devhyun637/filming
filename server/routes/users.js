@@ -17,8 +17,9 @@ router.post("/personRegister", async (req, res) => {
 
   let userInfo = req.body;
   let fk_userId = req.cookies.id;
+  console.log(req.cookies);
   console.log(userInfo);
-  //interest처리필요
+  //interest처리필요, fk안들어감 수정해야함
   try {
     let userResult = await models.UserInfo.create({
       englishName: userInfo.englishName,
@@ -32,7 +33,7 @@ router.post("/personRegister", async (req, res) => {
       SNS_youtube: userInfo.SNS_youtube,
       biography: userInfo.biography,
       filmography: userInfo.filmography,
-      fk_user_id: fk_userId,
+      fk_userId: fk_userId,
     });
 
     await models.User.update(
@@ -132,7 +133,7 @@ router.post("/register", (req, res) => {
     created_at: new Date(),
     updated_at: new Date(),
     age: userAge,
-    gender: userInfo.gender,
+    gender: userInfo.userGender,
     address: userInfo.addresses,
     telNum: userInfo.phoneNumber,
   })
@@ -227,6 +228,60 @@ router.post("/profileInfo", async (req, res) => {
       success: false,
       error: e,
     });
+  }
+});
+
+router.get("/auth", async (req, res) => {
+  let token = req.cookies.user;
+  if (!token) {
+    return res.status(200).json({ success: false });
+  }
+  let result = await jwt.verify(token, secretObj.secret);
+  if (result) {
+    return res.status(200).json({ success: true });
+  }
+  return res.status(200).json({ success: false });
+});
+
+router.get("/userInfo", async (req, res) => {
+  let id = req.cookies.id;
+  if (!id) {
+    return res.status(401).json({ success: false, message: "login please" });
+  }
+  try {
+    let userInfo = await models.User.findOne({
+      attributes: ["address", "name"],
+      include: [
+        {
+          model: models.UserInfo,
+          attributes: [
+            "introduce",
+            "height",
+            "weight",
+            "biography",
+            "filmography",
+            "ppt",
+            "nickName",
+          ],
+          where: { fk_userId: id },
+        },
+        // {
+        //   model: models.Portfolio,
+        //   attributes: ["portfolio"],
+        //   where: { userId: id },
+        // },
+        // {
+        //   model: models.UserInteresting,
+        //   attributes: ["interId"],
+        //   where: { userId: id },
+        // },
+      ],
+      where: { id: id },
+    });
+    return res.status(200).json({ success: true, userInfo });
+  } catch (e) {
+    console.log(e);
+    return res.status(401).json({ success: false, message: e });
   }
 });
 

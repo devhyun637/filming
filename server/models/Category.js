@@ -8,6 +8,10 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             allowNull: true
         }
+    }, {
+        underscored: true,
+        freezeTalbeName: true,
+        tableName: "Category"
     });
         
     return Category;

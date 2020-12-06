@@ -20,6 +20,10 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             allowNull: false
         },
+    }, {
+        underscored: true,
+        freezeTalbeName: true,
+        tableName: "Comment"
     });
         
     return Comment;
