@@ -37,6 +37,7 @@ function JobOfferTable(props) {
               </TableBodyData>
               <TableBodyData className="post-title">
                 <Link
+                  className="post-title-link"
                   to={{
                     pathname: `/job-recurit/${value.id}`,
                     state: {

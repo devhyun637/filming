@@ -32,3 +32,11 @@ th {
 .post-title {
   width: 60%;
 }
+
+.post-title-link {
+  color: #565656;
+}
+
+.post-title-link:hover {
+  font-weight: 500;
+}
