@@ -14,18 +14,16 @@ const Main = styled.main`
   margin: 2rem auto;
 `;
 
-const RecuritingInfo = styled.section`
+const RecruitingInfo = styled.section`
   width: 60vw;
 `;
 
-const H1 = styled.h1`
+const H = styled.h2`
   margin: 0 0.5rem 1rem 0.5rem;
-  font-size: 1.5rem;
 `;
 
-const RecuritButton = styled.button`
+const Button = styled.button`
   margin: 3rem auto;
-  margin-bottom: 6rem;
   background-color: #6092cd;
   color: white;
   font-size: 1rem;
@@ -35,6 +33,12 @@ const RecuritButton = styled.button`
 `;
 
 function RecuritingPage(props) {
+  // user의 지원 상태 - 0이면 지원안함, 1이면 지원함
+  const userRecruitState = 0;
+
+  // 게시글의 상태 - 0이면 지원마감, 1이면 구직중
+  const recruitState = 1;
+
   const {
     id,
     date,
@@ -56,8 +60,8 @@ function RecuritingPage(props) {
 
   return (
     <Main>
-      <RecuritingInfo>
-        <H1>구인/구직</H1>
+      <RecruitingInfo>
+        <H>구인/구직</H>
         <Title title={title} userName={userName} date={date} />
         <Table
           companyName={companyName}
@@ -71,10 +75,21 @@ function RecuritingPage(props) {
           deadline={deadline}
         />
         <Discription desc={discipt} />
-      </RecuritingInfo>
-      <Link to="/">
-        <RecuritButton>지원하기</RecuritButton>
-      </Link>
+      </RecruitingInfo>
+
+      {recruitState === 0 ? (
+        <Link to="/job-board">
+          <Button className="go-to-board">목록으로</Button>
+        </Link>
+      ) : userRecruitState === 0 ? (
+        <Link to="/">
+          <Button className="recruit">지원하기</Button>
+        </Link>
+      ) : (
+        <Link to="/">
+          <Button className="cancle-recruit">지원취소하기</Button>
+        </Link>
+      )}
     </Main>
   );
 }
