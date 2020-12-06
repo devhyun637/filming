@@ -18,7 +18,7 @@ router.post("/personRegister", async (req, res) => {
   let userInfo = req.body;
   let fk_userId = req.cookies.id;
   console.log(userInfo);
-  //interest처리필요
+  //interest처리필요, fk안들어감 수정해야함
   try {
     let userResult = await models.UserInfo.create({
       englishName: userInfo.englishName,
@@ -228,6 +228,19 @@ router.post("/profileInfo", async (req, res) => {
       error: e,
     });
   }
+});
+
+router.get("/auth", (req, res) => {
+  let token = req.cookies.user;
+  if (!token) {
+    return res.status(200).json({ success: false });
+  }
+  let result = jwt.verify(token, secretObj.secret);
+  console.log(result);
+  if (result) {
+    return res.status(200).json({ success: true });
+  }
+  return res.status(200).json({ success: false });
 });
 
 module.exports = router;

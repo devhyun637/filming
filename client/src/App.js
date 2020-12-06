@@ -12,6 +12,7 @@ import HomePage from "./components/views/HomePage/HomePage";
 import RecuritingPage from "./components/views/RecruitingPage/RecuritingPage";
 
 import ProfilePage from "./components/views/ProfilePage/ProfilePage";
+import Auth from "./Auth/Auth";
 
 function App() {
   return (
@@ -20,17 +21,29 @@ function App() {
       <div>
         {/* 로그인 유뭉에 따른 회원 접근 권한 주기 */}
         <Switch>
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route exact path="/" component={Auth(HomePage, null)} />
 
-          <Route exact path="/detailRegister" component={DetailRegisterPage} />
-          <Route exact path="/compRegister" component={CompanyRegisterPage} />
-          <Route exact path="/personRegister" component={PersonRegisterPage} />
+          <Route
+            exact
+            path="/detailRegister"
+            component={Auth(DetailRegisterPage, true)}
+          />
+          <Route
+            exact
+            path="/compRegister"
+            component={Auth(CompanyRegisterPage, true)}
+          />
+          <Route
+            exact
+            path="/personRegister"
+            component={Auth(PersonRegisterPage, true)}
+          />
 
-          <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/profile" component={Auth(ProfilePage, true)} />
 
-          <Route exact path="/recruit" component={RecuritingPage} />
+          <Route exact path="/recruit" component={Auth(RecuritingPage, true)} />
         </Switch>
       </div>
     </Router>
