@@ -21,12 +21,15 @@ function App() {
     <Router>
       <Header />
       <div>
-        {/* 로그인 유뭉에 따른 회원 접근 권한 주기 */}
         <Switch>
+          <Route exact path="/" component={Auth(HomePage, null)} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
+
           <Route
             exact
             path="/job-board"
-            component={Auth(DetailRegisterPage, null)}
+            component={Auth(JobBoardPage, null)}
           />
           <Route
             exact
@@ -46,6 +49,11 @@ function App() {
 
           <Route exact path="/profile" component={Auth(ProfilePage, true)} />
           <Route exact path="/job-recurit/:id" component={RecuritingPage} />
+          <Route
+            exact
+            path="/job-recurit/:id"
+            component={Auth(RecuritingPage, true)}
+          />
         </Switch>
       </div>
     </Router>
