@@ -92,32 +92,30 @@ function ProfilePage(props) {
 
   const [introduce, setIntroduce] = useState("");
   const [userName, setUserName] = useState("이름없음");
-  // const [address, setAddress] = useState([]);
+  const [address, setAddress] = useState("");
   // const [body, setBody] = useState([]);
   // const [interest, setInterest] = useState([]);
-  // const [biography, setBiography] = useState("");
-  // const [filmography, setFilmography] = useState("");
+  const [biography, setBiography] = useState("");
+  const [filmography, setFilmography] = useState("");
   const [profile, setProfile] = useState(images);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   // const [portfolio, setPortfolio] = useState("");
 
   //////////////////////////////////회원 정보 가져오기////////////////////////////////
-  // useEffect(() => {
-  //   //오른쪽 프롶필 정보 가져오기
-  //   axios.post("/api/주소입력하기", userId).then(response => {
-  //     if (response.data.success) {
-  //       setIntroduce();
-  //       setAddress();
-  //       setBody();
-  //       setInterest();
-  //       setBiography();
-  //       setFilmography();
-  //       setProfile();
-  //       setPortfolio();
-  //     } else {
-  //       console.log("정보 가져오기 실패");
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    //오른쪽 프롶필 정보 가져오기
+    axios.get("/api/users/userInfo").then((response) => {
+      console.log(response);
+      setUserName(response.data.userInfo.name);
+      setAddress(response.data.userInfo.address);
+      setBiography(response.data.userInfo.UserInfo.biography);
+      setFilmography(response.data.userInfo.UserInfo.filmography);
+      setIntroduce(response.data.userInfo.UserInfo.introduce);
+      setHeight(response.data.userInfo.UserInfo.height);
+      setWeight(response.data.userInfo.UserInfo.weight);
+    });
+  }, []);
   //////////////////////////////////회원 정보 가져오기////////////////////////////////
 
   const exampleText = `Contrary to popular belief, Lorem Ipsum is not simply random text. \n It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College`;
@@ -156,12 +154,15 @@ function ProfilePage(props) {
       </UserSection>
 
       <ProfileSectioon>
-        <Article name={"자기소개"} desc={exampleText} />
-        <Article name={"주소"} desc={exampleText} />
-        <Article name={"신체사이즈"} desc={exampleText} />
+        <Article name={"자기소개"} desc={introduce} />
+        <Article name={"주소"} desc={address} />
+        <Article
+          name={"신체사이즈"}
+          desc={`height: ${height}cm, weight: ${weight}kg`}
+        />
         <Article name={"관심 분야"} desc={exampleText} />
-        <Article name={"바이오그래피"} desc={exampleText} />
-        <Article name={"필모그래피"} desc={exampleText} />
+        <Article name={"바이오그래피"} desc={biography} />
+        <Article name={"필모그래피"} desc={filmography} />
         <Article name={"첨부된 프로필"} desc={exampleText} />
         <Article name={"포트폴리오"} desc={exampleText} />
       </ProfileSectioon>

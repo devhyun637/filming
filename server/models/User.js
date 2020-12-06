@@ -60,8 +60,18 @@ module.exports = function (sequelize, DataTypes) {
     }
   );
   User.associate = function (models) {
-    models.UserInfo.belongsTo(models.User, { foreignKey: "fk_userId" });
-    models.Company.belongsTo(models.User, { foreignKey: "fk_userId" });
+    models.User.hasOne(models.UserInfo, {
+      onDelete: "CASCADE",
+      hooks: true,
+      foreignKey: {
+        name: "fk_userId",
+        allowNull: false,
+      },
+    });
+    models.User.hasMany(models.Portfolio, { foreignKey: "fk_userId" });
+    models.Portfolio.belongsTo(models.User, { foreignKey: "fk_userId" });
+    models.User.hasOne(models.UserInteresting, { foreignKey: "fk_userId" });
+    models.User.hasOne(models.Company, { foreignKey: "fk_userId" });
   };
   return User;
 };

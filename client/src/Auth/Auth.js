@@ -10,8 +10,10 @@ export default function (SpecificComponent, option, adminRoute = null) {
   //back에 req날리기
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get("http://localhost:5000/api/users/auth");
-      if (res.success) {
+      let res = await axios.get("http://localhost:5000/api/users/auth", {
+        withCredentials: true,
+      });
+      if (res.data.success) {
         await setVerify(true);
       } else {
         await setVerify(false);
