@@ -150,7 +150,7 @@ function Header() {
 
       <HeaderNav className="menu-nav">
         <HeaderMenuList>
-          <Link className="link" to="#">
+          <Link className="link" to="/job-board">
             구인게시판
           </Link>
         </HeaderMenuList>

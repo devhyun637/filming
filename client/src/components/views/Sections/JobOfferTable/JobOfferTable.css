@@ -1,11 +1,34 @@
-.job-offer-table {
-    width: 100%;
-    border: 1px solid red;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border: 1px solid #ced0da;
 }
 
-.job-offer-table-title {
-    font-size: 1.8rem;
-    caption-side: top;
-    color: black;
-    margin-bottom: 15px;
+.table-head {
+  text-align: center;
+  color: #353535;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.table-body {
+  font-size: 0.9rem;
+}
+
+td,
+th {
+  padding: 6px;
+  border: 1px solid #ced0da;
+  text-align: left;
+}
+
+.post-classification,
+.post-written-date {
+  text-align: center;
+  width: 20%;
+}
+
+.post-title {
+  width: 60%;
 }

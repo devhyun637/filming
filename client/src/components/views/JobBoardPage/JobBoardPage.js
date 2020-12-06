@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import "./HomePage.css";
 import JobOfferTable from "../Sections/JobOfferTable/JobOfferTable.js";
 
-function HomePage() {
+import "./JobBoardPage.css";
+import { Pagination } from "antd";
+
+function JobBoardPage() {
   const RecruitData = [
     {
       id: 1,
@@ -59,19 +60,23 @@ function HomePage() {
     },
   ];
 
+  // paging 처리
+  const onHandlePage = (page) => {};
+
   return (
-    <section id="home_page">
-      <section className="board">
-        <div className="header-and-button">
-          <h2 id="recuriting-page-header">구인게시판</h2>
-          <Link to="/job-board" className="nav-to-recuriting-page">
-            더보기
-          </Link>
-        </div>
-        <JobOfferTable data={RecruitData} />
-      </section>
+    <section className="job-board">
+      <div className="header-and-button">
+        <h2 id="recuriting-page-header">구인게시판</h2>
+      </div>
+      <JobOfferTable data={RecruitData} />
+      <br />
+      <Pagination
+        defaultCurrent={1}
+        total={RecruitData.length}
+        onChange={onHandlePage}
+      />
     </section>
   );
 }
 
-export default HomePage;
+export default JobBoardPage;

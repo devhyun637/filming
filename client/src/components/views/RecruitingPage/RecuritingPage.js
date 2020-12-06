@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
-import axios from "axios";
 
 import styled from "styled-components";
 import Title from "./Sections/Title";
@@ -37,35 +35,42 @@ const RecuritButton = styled.button`
 `;
 
 function RecuritingPage(props) {
-  //////////////////////////////////회원 정보 가져오기////////////////////////////////
-  // useEffect(() => {
-  //   //오른쪽 프롶필 정보 가져오기
-  //   axios.post("/api/주소입력하기", userId).then(response => {
-  //     if (response.data.success) {
-  //       setIntroduce();
-  //       setAddress();
-  //       setBody();
-  //       setInterest();
-  //       setBiography();
-  //       setFilmography();
-  //       setProfile();
-  //       setPortfolio();
-  //     } else {
-  //       console.log("정보 가져오기 실패");
-  //     }
-  //   });
-  // }, []);
-  //////////////////////////////////회원 정보 가져오기////////////////////////////////
+  const {
+    id,
+    date,
+    title,
+    userName,
+    companyName,
+    filmName,
+    companyAddress,
+    userAddress,
+    field,
+    period,
+    pay,
+    manager,
+    deadline,
+    discipt,
+  } = props.location.state;
 
-  const exampleText = `Contrary to popular belief, Lorem Ipsum is not simply random text. \n It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College`;
+  console.log(title);
 
   return (
     <Main>
       <RecuritingInfo>
         <H1>구인/구직</H1>
-        <Title />
-        <Table />
-        <Discription desc={exampleText} />
+        <Title title={title} userName={userName} date={date} />
+        <Table
+          companyName={companyName}
+          filmName={filmName}
+          companyAddress={companyAddress}
+          userAddress={userAddress}
+          field={field}
+          period={period}
+          pay={pay}
+          manager={manager}
+          deadline={deadline}
+        />
+        <Discription desc={discipt} />
       </RecuritingInfo>
       <Link to="/">
         <RecuritButton>지원하기</RecuritButton>

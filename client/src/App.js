@@ -8,7 +8,9 @@ import LoginPage from "./components/views/LoginPage/LoginPage";
 import DetailRegisterPage from "./components/views/RegisterPage/DetailRegister/DetailRegisterPage";
 import CompanyRegisterPage from "./components/views/RegisterPage/DetailRegister/CompanyRegisterPage";
 import PersonRegisterPage from "./components/views/RegisterPage/DetailRegister/PersonRegisterPage";
+
 import HomePage from "./components/views/HomePage/HomePage";
+import JobBoardPage from "./components/views/JobBoardPage/JobBoardPage";
 import RecuritingPage from "./components/views/RecruitingPage/RecuritingPage";
 
 import ProfilePage from "./components/views/ProfilePage/ProfilePage";
@@ -20,9 +22,11 @@ function App() {
       <div>
         {/* 로그인 유뭉에 따른 회원 접근 권한 주기 */}
         <Switch>
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/" component={HomePage} />
+
+          <Route exact path="/job-board" component={JobBoardPage} />
 
           <Route exact path="/detailRegister" component={DetailRegisterPage} />
           <Route exact path="/compRegister" component={CompanyRegisterPage} />
@@ -30,7 +34,7 @@ function App() {
 
           <Route exact path="/profile" component={ProfilePage} />
 
-          <Route exact path="/recruit" component={RecuritingPage} />
+          <Route exact path="/job-recurit/:id" component={RecuritingPage} />
         </Switch>
       </div>
     </Router>

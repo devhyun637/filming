@@ -1,0 +1,13 @@
+.job-board {
+  padding: 10px;
+  width: 70%;
+  margin: 3rem auto;
+}
+
+.ant-pagination {
+  text-align: center;
+}
+
+.ant-pagination-item {
+  background-color: transparent;
+}
