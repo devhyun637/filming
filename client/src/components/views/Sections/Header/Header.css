@@ -3,3 +3,15 @@
   margin: 0 0.8em;
   padding-top: 0.125rem;
 }
+
+.link {
+  color: #353535;
+}
+
+.link:hover {
+  color: #609ae9;
+}
+
+.logo {
+  margin: 0 5rem;
+}

@@ -31,6 +31,7 @@ const RecuritTitle = styled.h2`
 
 const RecuritWrittenInfo = styled.div`
   font-size: 0.8rem;
+  margin-top: 0.25rem;
 `;
 
 const RecuritWirter = styled.p`
@@ -51,11 +52,11 @@ function Title(props) {
 
       <RecuritTitleInfo className="title-info">
         <RecuritTitle className="title">
-          단편영화 "시월의 아침" 배우 모집합니다!!!!
+          <strong>{props.title}</strong>
         </RecuritTitle>
         <RecuritWrittenInfo className="write-info">
-          <RecuritWirter>작성자: 김필름</RecuritWirter>
-          <RecuritWirteDate>게시날짜 : 0000 - 00 - 00 </RecuritWirteDate>
+          <RecuritWirter>작성자: {props.userName}</RecuritWirter>
+          <RecuritWirteDate>게시날짜 : {props.date} </RecuritWirteDate>
         </RecuritWrittenInfo>
       </RecuritTitleInfo>
     </RecuritTitleSection>

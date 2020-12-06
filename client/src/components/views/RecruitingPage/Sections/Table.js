@@ -38,39 +38,39 @@ function Table(props) {
         <RecuritTableBody>
           <tr>
             <RecuritTableIndex>업체명/성명</RecuritTableIndex>
-            <RecuritTableText>필**아카데미</RecuritTableText>
+            <RecuritTableText>{props.companyName}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>작품 제목</RecuritTableIndex>
-            <RecuritTableText>시월의 아침</RecuritTableText>
+            <RecuritTableText>{props.filmName}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>홈페이지 주소</RecuritTableIndex>
-            <RecuritTableText>Http://*****************</RecuritTableText>
+            <RecuritTableText>{props.companyAddress}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>이메일</RecuritTableIndex>
-            <RecuritTableText>asndkansdlkasn@naver.com</RecuritTableText>
+            <RecuritTableText>{props.userAddress}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>모집분야</RecuritTableIndex>
-            <RecuritTableText>배우</RecuritTableText>
+            <RecuritTableText>{props.field}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>참여기간(회차수)</RecuritTableIndex>
-            <RecuritTableText>2021년 1월 (5회차)</RecuritTableText>
+            <RecuritTableText>{props.period}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>페이</RecuritTableIndex>
-            <RecuritTableText>회차당 **만 원</RecuritTableText>
+            <RecuritTableText>{props.pay}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>담당자</RecuritTableIndex>
-            <RecuritTableText>피일름</RecuritTableText>
+            <RecuritTableText>{props.manager}</RecuritTableText>
           </tr>
           <tr>
             <RecuritTableIndex>마감기한</RecuritTableIndex>
-            <RecuritTableText>2020-10-12</RecuritTableText>
+            <RecuritTableText>{props.deadline}</RecuritTableText>
           </tr>
         </RecuritTableBody>
       </RecuritInfoTable>

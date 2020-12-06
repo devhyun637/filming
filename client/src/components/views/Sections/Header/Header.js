@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import "./Header.css";
 import { Badge } from "antd";
 import {
   MailOutlined,
   MessageOutlined,
-  NotificationOutlined
+  NotificationOutlined,
 } from "@ant-design/icons";
 
 import Logo from "./logo_png.png";
@@ -26,12 +28,8 @@ const HeaderSection = styled.header`
   flex-wrap: wrap;
 `;
 
-const HeaderLogo = styled.a`
-  margin: 0 5rem;
-`;
-
 const LogoImg = styled.img.attrs({
-  src: Logo
+  src: Logo,
 })`
   width: 10rem;
 `;
@@ -52,14 +50,6 @@ const HeaderMenuList = styled.li`
 
 const HeaderUserMenuList = styled.li`
   margin: 0 1.5em;
-`;
-
-const Link = styled.a`
-  color: #353535;
-
-  &:hover {
-    color: #609ae9;
-  }
 `;
 
 const User = styled.div`
@@ -84,7 +74,7 @@ const UserName = styled.span`
 
 function Header() {
   //////////////////////////userId 가져오기/////////////////////////////
-  const userId = "111";
+  const userId = "";
   const [name, setName] = useState("김필름");
   ///////////////////////////////////////////////////////////////////
 
@@ -94,10 +84,14 @@ function Header() {
       return (
         <HeaderNav className="user_nav">
           <HeaderUserMenuList>
-            <Link href="/login"> 로그인 </Link>
+            <Link className="link" to="/login">
+              로그인
+            </Link>
           </HeaderUserMenuList>
           <HeaderUserMenuList>
-            <Link href="/register"> 회원가입 </Link>
+            <Link className="link" to="/register">
+              회원가입
+            </Link>
           </HeaderUserMenuList>
         </HeaderNav>
       );
@@ -106,7 +100,7 @@ function Header() {
       return (
         <HeaderNav className="member_nav">
           <HeaderUserMenuList>
-            <Link href="#">
+            <Link className="link" to="#">
               <Badge count={0} size="small">
                 <MailOutlined
                   style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
@@ -116,7 +110,7 @@ function Header() {
           </HeaderUserMenuList>
 
           <HeaderUserMenuList>
-            <Link href="#">
+            <Link className="link" to="#">
               <Badge count={0} size="small">
                 <MessageOutlined
                   style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
@@ -126,7 +120,7 @@ function Header() {
           </HeaderUserMenuList>
 
           <HeaderUserMenuList>
-            <Link href="#">
+            <Link className="link" to="#">
               <Badge count={1} size="small">
                 <NotificationOutlined
                   style={{ fontSize: "1.2rem", color: "#a5a7ad" }}
@@ -136,7 +130,7 @@ function Header() {
           </HeaderUserMenuList>
 
           <HeaderUserMenuList style={{ padding: 0 }}>
-            <Link href="/profile">
+            <Link className="link" to="/profile">
               <User>
                 <ProfileImage className="profile-img" />
                 <UserName>{name}</UserName>
@@ -150,19 +144,25 @@ function Header() {
 
   return (
     <HeaderSection id="header">
-      <HeaderLogo href="/">
+      <Link className="logo" to="/">
         <LogoImg />
-      </HeaderLogo>
+      </Link>
 
       <HeaderNav className="menu-nav">
         <HeaderMenuList>
-          <Link href="#"> 구인게시판 </Link>
+          <Link className="link" to="/job-board">
+            구인게시판
+          </Link>
         </HeaderMenuList>
         <HeaderMenuList>
-          <Link href="#"> 프로필 탐색 </Link>
+          <Link className="link" to="#">
+            프로필 탐색
+          </Link>
         </HeaderMenuList>
         <HeaderMenuList>
-          <Link href="#"> 로케이션 </Link>
+          <Link className="link" to="#">
+            로케이션
+          </Link>
         </HeaderMenuList>
       </HeaderNav>
 
