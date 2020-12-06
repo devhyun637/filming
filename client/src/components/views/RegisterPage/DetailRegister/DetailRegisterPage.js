@@ -11,7 +11,9 @@ import companyImg2 from "./img/company_register_checked.png";
 function DetailRegisterPage() {
   return (
     <section id="detail_register_page">
-      <h1>안녕하세요, 회원정보를 등록해주세요!</h1>
+      <h1 style={{ textAlign: "center" }}>
+        안녕하세요, 회원정보를 등록해주세요!
+      </h1>
       <ul>
         <li>
           <Link to="/personRegister">
