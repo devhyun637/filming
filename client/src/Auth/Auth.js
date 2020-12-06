@@ -5,7 +5,7 @@ import HomePage from "../components/views/HomePage/HomePage";
 import { useState } from "react";
 
 export default function (SpecificComponent, option, adminRoute = null) {
-  const [verify, setVerify] = useState(true);
+  const [verify, setVerify] = useState(false);
 
   //back에 req날리기
   useEffect(() => {
