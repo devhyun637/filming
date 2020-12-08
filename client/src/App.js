@@ -11,7 +11,7 @@ import PersonRegisterPage from "./components/views/RegisterPage/DetailRegister/P
 
 import HomePage from "./components/views/HomePage/HomePage";
 import JobBoardPage from "./components/views/JobBoardPage/JobBoardPage";
-import RecuritingPage from "./components/views/RecruitingPage/RecuritingPage";
+import PostPage from "./components/views/PostPage/PostPage";
 
 import ProfilePage from "./components/views/ProfilePage/ProfilePage";
 import Auth from "./Auth/Auth";
@@ -44,11 +44,10 @@ function App() {
           />
 
           <Route exact path="/profile" component={Auth(ProfilePage, true)} />
-          <Route exact path="/job-recurit/:id" component={RecuritingPage} />
           <Route
             exact
             path="/job-recurit/:id"
-            component={Auth(RecuritingPage, true)}
+            component={Auth(PostPage, true)}
           />
         </Switch>
       </div>
