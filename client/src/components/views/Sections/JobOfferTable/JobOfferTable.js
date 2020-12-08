@@ -16,7 +16,7 @@ const TableBodyData = styled.td`
 `;
 
 function JobOfferTable(props) {
-  const tableData = props.data;
+  const posts = props.data;
 
   return (
     <section id="job_offer">
@@ -30,7 +30,7 @@ function JobOfferTable(props) {
         </thead>
 
         <TableBody className="table-body">
-          {tableData.map((value) => (
+          {posts.map((value) => (
             <TableBodyRow key={value.id}>
               <TableBodyData className="post-classification">
                 <Tags name={value.tag} />

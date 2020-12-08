@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./HomePage.css";
 import JobOfferTable from "../Sections/JobOfferTable/JobOfferTable.js";
 
 function HomePage() {
+  // TODO : useEffect로 정보 가져왔으면 RecruitData 삭제하기 !!
   const RecruitData = [
     {
       id: 1,
@@ -59,6 +60,17 @@ function HomePage() {
     },
   ];
 
+  const [posts, setPosts] = useState([]);
+
+  // TODO : 구인구직 글 가져오기 - 최신 글 10개만 가져오기
+  // 글 객체를 가져오기 객체안에는 id, tag, title, data, userName, companyName, fileName, companyAddress, field, period, pay, manager, deadline, discipt 전부 있어야함.
+  useEffect(() => {
+    // axios.get().then((response) => {
+    // const jobPosts = response......
+    // setPosts();
+    // });
+  }, []);
+
   return (
     <section id="home_page">
       <section className="board">
@@ -75,3 +87,20 @@ function HomePage() {
 }
 
 export default HomePage;
+
+// TODO : useState, useEffect로 정보가져왔으면 return 부분 밑에 코드로 수정
+{
+  /* 
+  <section id="home_page">
+    <section className="board">
+      <div className="header-and-button">
+        <h2 id="recuriting-page-header">구인게시판</h2>
+        <Link to="/job-board" className="nav-to-recuriting-page">
+        더보기
+        </Link>
+      </div>
+      <JobOfferTable data={posts} />
+    </section>
+  </section>; 
+*/
+}
