@@ -98,7 +98,7 @@ function PersonRegisterPage(props) {
   };
 
   //서버값 넘기기
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = () => {
     // event.preventDefault();
 
     let body = {
@@ -114,8 +114,6 @@ function PersonRegisterPage(props) {
       profileFiles: ProfileFiles,
       portfolio: Portfolio,
     };
-
-    console.log(body);
 
     // 회원가입 서버 연동
     Axios.post("/api/users/personRegister", body, {

@@ -12,6 +12,7 @@ import PersonRegisterPage from "./components/views/RegisterPage/DetailRegister/P
 import HomePage from "./components/views/HomePage/HomePage";
 import JobBoardPage from "./components/views/JobBoardPage/JobBoardPage";
 import PostPage from "./components/views/PostPage/PostPage";
+import PersonApplyFormPage from "./components/views/PostPage/Sections/PersonApplyFormPage";
 
 import ProfilePage from "./components/views/ProfilePage/ProfilePage";
 import Auth from "./Auth/Auth";
@@ -48,6 +49,11 @@ function App() {
             exact
             path="/job-recurit/:id"
             component={Auth(PostPage, true)}
+          />
+          <Route
+            exact
+            path="/job-recurit/:id/recruiting"
+            component={Auth(PersonApplyFormPage, true)}
           />
         </Switch>
       </div>

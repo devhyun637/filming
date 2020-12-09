@@ -45,7 +45,7 @@ const AuthorButton = styled.button`
 
 function PostPage(props) {
   // user 관련
-  const [userState, serUserState] = useState(2);
+  const [userState, serUserState] = useState(0);
 
   // post 관련
   const [postId, setPostId] = useState(props.location.pathname.split("/")[2]);
@@ -124,7 +124,7 @@ function PostPage(props) {
   // TODO : 삭제기능 추가하기
   const onPostDeletelHandler = () => {};
   // TODO : 글 마감 기능 추가하기
-  const onRecruitingFinishHandler = (e) => {
+  const onRecruitingFinishHandler = () => {
     setRecruitState(0);
     alert("마감되었습니다");
   };
@@ -133,7 +133,11 @@ function PostPage(props) {
     // 지원을 하지 않은 경우
     if (userState === 0) {
       return (
-        <Link to="/">
+        <Link
+          to={{
+            pathname: `${props.location.pathname}/recruiting`,
+          }}
+        >
           <Button className="recruit">지원하기</Button>
         </Link>
       );
@@ -150,9 +154,15 @@ function PostPage(props) {
     if (userState === 2) {
       return (
         <section>
-          <Link to="/">
-            <AuthorButton className="cancle-recruit">수정하기</AuthorButton>
-          </Link>
+          <AuthorButton
+            className="cancle-recruit"
+            disable
+            style={{
+              backgroundColor: "gray",
+            }}
+          >
+            수정하기
+          </AuthorButton>
 
           <Link to="/job-board">
             <AuthorButton
